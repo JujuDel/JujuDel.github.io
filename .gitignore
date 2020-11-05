@@ -32,3 +32,10 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Added
+.jekyll-cache/
+*.sln
+*.vcxproj*
+[Dd]ebug/
+.vs/

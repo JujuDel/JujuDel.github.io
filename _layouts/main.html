@@ -11,6 +11,14 @@ layout: default
       <div class="author-name">{{site.author}}</div>
       <p>{{site.about-author}}</p>
     </div>
+    <ul type="circle">
+    {% for post in site.posts %}
+    {% if post.group == "global" %}
+      <li><a href="{{post.url | prepend: site.baseurl}}">{{post.title}}</a></li>
+    {% else %}
+    {% endif %}
+    {% endfor %}
+    </ul>
   </header> <!-- End Header -->
   <footer>
     <section class="contact">

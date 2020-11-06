@@ -10,7 +10,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # Author Settings
 author: Julien DELCLOS # name
 author-img: julien-delclos.png # photo
-about-author: I am a software engineer focusing on AI, Computer Vision and Deep Learning. Always hungry to keep learning. # description
+about-author: I am a software engineer focusing on AI, Computer Vision and Deep Learning. Always eager to keep learning. # description
 social-codingame: b944cb66159c494961db183c595578915353933 # CodinGame handle
 social-facebook: delclos.julien # Facebook handle
 social-github: JujuDel # Github handle

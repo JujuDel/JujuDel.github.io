@@ -3,6 +3,8 @@ layout: post
 title: "Find your doppel ganger"
 img: posts/ComputerVision/doppelGanger.png
 group: computer_vision
+github: https://github.com/JujuDel/DoppelGanger
+language: Python
 ---
 
 This project aims to find a doppelganger or look-alike to a given person within a celebrity dataset.

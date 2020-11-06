@@ -1,0 +1,28 @@
+---
+layout: global
+title: Computer Vision
+img: posts/computervision.jpg
+group: global
+github: https://github.com/JujuDel/FancyOpenCV
+---
+
+<p>Here you can find all the projects developed that required computer vision, along with their github repositories and some explanations.</p>
+
+{% for post in site.posts %}
+{% if post.group == "computer_vision" %}
+<article class="post">
+    {% if post.img %}
+    <a class="post-thumbnail" style="background-image: url({{"/assets/img/" | prepend: site.baseurl | append : post.img}})" href="{{post.url | prepend: site.baseurl}}"></a>
+    {% else %}
+    {% endif %}
+    <div class="post-content">
+        <h2 class="post-title"><a href="{{post.url | prepend: site.baseurl}}">{{post.title}}</a></h2>
+        <p>{{ post.content | strip_html | truncatewords: 15 }}</p>
+		<span class="post-date">{{post.date | date: '%Y, %b'}}&nbsp;&nbsp;</span>
+        <span class="post-words"><a href="{{post.github}}">Link to the repo</a></span>
+        <p><span class="post-words">Language: {{post.language}}</span></p>
+    </div>
+</article>
+{% else %}
+{% endif %}
+{% endfor %}

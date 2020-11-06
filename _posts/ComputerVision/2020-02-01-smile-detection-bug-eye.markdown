@@ -3,6 +3,8 @@ layout: post
 title: "Fancy stuff - Smile detection and bug eye"
 img: posts/ComputerVision/funFaces.gif
 group: computer_vision
+github: https://github.com/JujuDel/FancyOpenCV
+language: Python
 ---
 
 Compute facial landmarks detector then:

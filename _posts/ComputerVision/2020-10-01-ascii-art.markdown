@@ -4,6 +4,8 @@ title: "ASCII Art"
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. # Add post description (optional)
 img: posts/ComputerVision/asciiArt.gif
 group: computer_vision
+github: https://github.com/JujuDel/FancyOpenCV
+language: Python
 ---
 
 Creates an ASCII art from the webcam images and display it into the console.
@@ -15,5 +17,3 @@ Let's be honest, have a look to the code and you'll see that it is way simpler t
 ```bash
 > python asciiArt.py
 ```
-
-Link to the [repo](https://github.com/JujuDel/FancyOpenCV).

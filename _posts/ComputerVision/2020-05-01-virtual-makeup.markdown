@@ -3,6 +3,8 @@ layout: post
 title: "Virtual MakeUp Tool"
 img: posts/ComputerVision/virtualMakeUp.png
 group: computer_vision
+github: https://github.com/JujuDel/VirtualMakeUp
+language: Python
 ---
 
 This tool uses a variety of computer vision techniques and libraries to automatically detect the iris, the lips and the teeth on the image. Therefore you can:

@@ -3,6 +3,8 @@ layout: post
 title: "Facial detection and recognition"
 img: posts/ComputerVision/FacialRecognition.gif
 group: computer_vision
+github: https://github.com/JujuDel/FaceDetection-Recognition
+language: Python
 ---
 
 This tool uses dlib and OpenCV to detect faces, extract them and recognizes them.

@@ -1,0 +1,272 @@
+/* ============================================================
+   Julien Delclos — portfolio ("champ / contre-champ" design)
+   Two palettes on purpose:
+     human half  → light paper + green   (--paper / --green)
+     machine half→ dark navy + cyan      (--dark / --cool)
+   Organized top-to-bottom to match index.html.
+   ============================================================ */
+
+:root{
+  /* human half */
+  --ink:#14161a;         /* near-black text on light bg */
+  --paper:#f5f6f8;       /* light cool-grey background  */
+  --green:#1e7a5f;       /* human accent                */
+  --psoft:#5d646e;       /* soft grey text on light bg  */
+  --pline:#dfe2e8;       /* light borders               */
+  /* machine half */
+  --dark:#0b0e14;        /* near-black navy background  */
+  --dark2:#121722;       /* card background             */
+  --dline:#242b38;       /* dark borders                */
+  --cool:#6cc4e8;        /* machine accent (cyan)       */
+  --dtext:#eef1f6;       /* light text on dark bg       */
+  --dsoft:#98a1b0;       /* soft grey text on dark bg   */
+  /* fonts */
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Inter","Segoe UI",sans-serif;
+  --mono:"JetBrains Mono","SF Mono",ui-monospace,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--dark);color:var(--dtext);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1140px;margin:0 auto;padding:0 36px}
+
+/* ---------- HERO : the live panoptic carousel ---------- */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;
+  background:radial-gradient(1100px 650px at 74% -10%, rgba(108,196,232,.10), transparent 60%),
+             radial-gradient(900px 600px at 8% 110%, rgba(30,122,95,.10), transparent 60%)}
+.hero-top{display:flex;justify-content:space-between;align-items:center;padding:26px 40px;font-size:13.5px}
+.hero-top .brand{font-family:var(--mono);font-weight:700}
+.hero-top nav{display:flex;gap:26px;color:rgba(255,255,255,.85)}
+.hero-top nav a:hover{color:#fff}
+.cv-btn{border:1px solid rgba(255,255,255,.4);padding:7px 16px;border-radius:999px;font-weight:600;transition:background .15s,color .15s}
+.cv-btn:hover{background:#fff;color:#111}
+.hero-grid{flex:1;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px;max-width:1250px;margin:0 auto;padding:0 40px 40px;width:100%}
+.hero-copy h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,4.8vw,74px);line-height:1.04;letter-spacing:-.015em;color:#fff}
+.hero-copy h1 .m{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(13px,1.4vw,21px);letter-spacing:-.01em;color:var(--cool);margin-top:18px}
+.hero-copy .sub{margin-top:20px;color:rgba(255,255,255,.72);font-size:17px;max-width:480px}
+.hero-copy .sub b{color:#fff;font-weight:600}
+.scroll-hint{margin-top:26px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.2em}
+
+/* the carousel frame — morphs to each scene's native aspect ratio */
+.stage{display:flex;align-items:center;justify-content:center;min-height:74vh}
+.frame{position:relative;border-radius:26px;overflow:hidden;background:#12151d;
+  border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 6px rgba(255,255,255,.02);
+  transition:width .8s cubic-bezier(.6,.05,.3,1), height .8s cubic-bezier(.6,.05,.3,1)}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .45s linear;pointer-events:none}
+.scene.on{opacity:1}
+.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+.scene .ovl{opacity:0;clip-path:inset(0 100% 0 0)}
+/* instance bounding boxes: pop in staggered (delay set by script.js) */
+.bxs{position:absolute;inset:0;z-index:3}
+.bx{position:absolute;border:1.5px solid #fff;border-radius:3px;opacity:0;transform:scale(1.07);
+  transition:opacity .3s ease, transform .38s cubic-bezier(.3,1.4,.5,1);
+  box-shadow:0 0 12px -2px rgba(0,0,0,.5);font-family:var(--mono)}
+.bx.on{opacity:1;transform:scale(1)}
+.bx .lb{position:absolute;left:-1.5px;font-size:9px;line-height:1;padding:2px 5px;border-radius:2px;
+  font-weight:700;letter-spacing:.06em;color:#0b0d12;white-space:nowrap}
+.bx .lb.out{top:-15px;border-radius:2px 2px 2px 0}
+.bx .lb.in{top:2px;left:2px}
+/* the scanline that reveals the panoptic overlay */
+.scan{position:absolute;top:0;bottom:0;left:0;width:2px;pointer-events:none;opacity:0;z-index:4;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.95),transparent);
+  box-shadow:0 0 18px 4px rgba(108,196,232,.6)}
+/* in-frame chips: LIVE (top-left), current mode (top-right), scene (bottom-left) */
+.fchip{position:absolute;z-index:5;padding:7px 12px;border-radius:9px;background:rgba(10,12,18,.72);
+  backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);color:#e8eaf0;
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;white-space:nowrap}
+.fchip.live{top:14px;left:14px;display:flex;align-items:center;gap:8px;font-weight:700}
+.fchip.live .dot{width:8px;height:8px;border-radius:50%;background:var(--cool);animation:live-pulse 1.6s ease-in-out infinite}
+@keyframes live-pulse{0%,100%{box-shadow:0 0 0 0 rgba(108,196,232,.7)}55%{box-shadow:0 0 0 7px rgba(108,196,232,0)}}
+.fchip.mode{top:14px;right:14px;font-weight:700;color:#fff}
+.fchip.state{bottom:16px;left:14px;color:#cfd3dd}
+.dots{position:absolute;bottom:22px;right:16px;z-index:5;display:flex;gap:7px}
+.dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:.3s;box-shadow:0 0 4px rgba(0,0,0,.6)}
+.dots span.on{background:#fff;transform:scale(1.25)}
+.vig{position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:linear-gradient(180deg,rgba(0,0,0,.34),transparent 18%,transparent 78%,rgba(0,0,0,.42))}
+
+/* ---------- section scaffolding ---------- */
+section{padding:110px 0}
+.sec-no{font-family:var(--mono);font-size:13px;font-weight:700;display:block;margin-bottom:14px}
+.sec-no.green{color:var(--green)}
+.sec-no.cool{color:var(--cool)}
+h2{font-size:clamp(34px,4.5vw,54px);letter-spacing:-.01em;line-height:1.1}
+.intro{max-width:620px;font-size:17px;margin:10px 0 56px}
+
+/* ---------- HUMAN half ---------- */
+.human{background:var(--paper);color:var(--ink)}
+.human h2{font-family:var(--serif);font-weight:500}
+.human h2 em{font-style:italic;color:var(--green)}
+.human .intro{color:var(--psoft)}
+.hgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.hcard{position:relative;background:#fff;border:1px solid var(--pline);border-radius:6px;padding:28px 24px;box-shadow:0 1px 2px rgba(20,22,26,.05);transition:transform .2s}
+.hcard:hover{transform:translateY(-3px)}
+.hcard .e{font-size:30px;display:inline-block;margin-bottom:14px}
+
+/* hover "detection" overlay: bracket corners + label chip */
+.det{position:absolute;inset:-7px;opacity:0;transition:opacity .16s;pointer-events:none;z-index:2}
+.hcard:hover .det{opacity:1}
+.det i{position:absolute;width:16px;height:16px;border:3px solid var(--green)}
+.det i:nth-child(1){top:0;left:0;border-right:none;border-bottom:none;border-radius:5px 0 0 0}
+.det i:nth-child(2){top:0;right:0;border-left:none;border-bottom:none;border-radius:0 5px 0 0}
+.det i:nth-child(3){bottom:0;left:0;border-right:none;border-top:none;border-radius:0 0 0 5px}
+.det i:nth-child(4){bottom:0;right:0;border-left:none;border-top:none;border-radius:0 0 5px 0}
+.det-chip{position:absolute;top:-13px;left:-3px;background:var(--green);color:#fff;font-family:var(--mono);font-weight:500;font-style:normal;font-size:11px;padding:3px 10px;border-radius:5px;white-space:nowrap}
+
+/* each hobby reacts in character when detected */
+.hcard[data-det="chess_player"]:hover .e{animation:det-tilt .55s ease}
+.hcard[data-det="wall_hugger"]:hover .e{animation:det-climb .6s ease}
+.hcard[data-det="skydiver"]:hover .e{animation:det-fall .65s ease}
+.hcard[data-det="middle_blocker"]:hover .e{animation:det-bounce .6s ease}
+.hcard[data-det="nerd"]:hover .e{animation:det-type .5s ease}
+@keyframes det-tilt{0%{transform:rotate(0)}30%{transform:rotate(-14deg)}70%{transform:rotate(10deg)}100%{transform:rotate(0)}}
+@keyframes det-climb{0%{transform:translateY(0)}40%{transform:translateY(-9px) rotate(-6deg)}100%{transform:translateY(0)}}
+@keyframes det-fall{0%{transform:translateY(-12px) rotate(-14deg)}70%{transform:translateY(4px) rotate(4deg)}100%{transform:translateY(0) rotate(0)}}
+@keyframes det-bounce{0%{transform:translateY(0)}30%{transform:translateY(-13px)}60%{transform:translateY(0)}80%{transform:translateY(-5px)}100%{transform:translateY(0)}}
+@keyframes det-type{0%,100%{transform:translateY(0)}25%{transform:translateY(2px)}50%{transform:translateY(-2px)}75%{transform:translateY(1px)}}
+.hcard h3{font-family:var(--serif);font-weight:600;font-size:23px;margin-bottom:6px}
+.hcard p{font-size:13.5px;color:var(--psoft);line-height:1.55}
+.hcard.wide{grid-column:1 / -1;display:flex;gap:22px;align-items:flex-start}
+.hcard.wide .e{margin-bottom:0;margin-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-family:var(--mono);font-size:12px;border:1px solid var(--pline);background:var(--paper);border-radius:999px;padding:5px 13px;color:var(--ink)}
+a.chip:hover{border-color:var(--green);color:var(--green)}
+.chips.mini{margin-top:12px}
+.chips.mini .chip{font-size:11px;padding:4px 10px}
+.langline{margin-top:44px;font-family:var(--serif);font-style:italic;font-size:21px}
+.langline span{color:var(--green)}
+
+/* ---------- MACHINE half ---------- */
+.machine{background:var(--dark);border-top:1px solid var(--dline)}
+
+/* MACHINE ILLUSTRATIONS — one animated SVG per section (shared 2.4 s
+   rhythm). By default they're dimmed; hovering the card lights them up. */
+.illu{display:block;width:100%;max-width:240px;margin:0 auto 8px;overflow:visible;
+  opacity:.5;filter:saturate(.55);transition:opacity .25s,filter .25s}
+.mcard:hover .illu{opacity:1;filter:saturate(1) drop-shadow(0 0 16px rgba(108,196,232,.30))}
+.illu text{font-family:var(--mono);text-anchor:middle}
+.illu .tiny{fill:#59606c;font-size:10px}
+/* camera */
+.cam-body{fill:#121722;stroke:#2c3542;stroke-width:2}
+.lens{fill:#0b0e14;stroke:#3a4454;stroke-width:2}
+.pupil{fill:var(--cool);animation:blink 2.4s ease-in-out infinite}
+.led{fill:#ef476f;animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.35}50%{opacity:1}}
+/* networks */
+.wires line{stroke:#212a39;stroke-width:1.4}
+.node{fill:#1b2434;stroke:#31405a;stroke-width:1.6;animation:nodepulse 2.4s ease-in-out infinite}
+.col.c2 .node{animation-delay:.35s}
+.col.c3 .node{animation-delay:.7s}
+@keyframes nodepulse{0%,100%{fill:#1b2434}50%{fill:var(--cool)}}
+/* the training loss curve draws itself, over and over */
+.axis{stroke:#2c3542;stroke-width:1.5}
+.loss{fill:none;stroke:var(--cool);stroke-width:2;stroke-linecap:round;
+  stroke-dasharray:120;animation:lossdraw 2.4s ease-in-out infinite}
+@keyframes lossdraw{0%{stroke-dashoffset:120}60%,100%{stroke-dashoffset:0}}
+/* SoC pins */
+.pins line{stroke:#2c3542;stroke-width:2}
+/* output screen */
+.screen{fill:#121722;stroke:#2c3542;stroke-width:2}
+.blob{opacity:.55;animation:refresh 2.4s ease-in-out infinite}
+.blob.b1{fill:#e26aa0}
+.blob.b2{fill:#4fb8a2}
+.blob.b3{fill:#8f7fd6}
+.obox rect{fill:none;stroke:#ffd166;stroke-width:1.6}
+.obox .otag{fill:#ffd166;stroke:none}
+.obox .olabel{fill:#14161a;font-size:8px;font-weight:700}
+.obox{animation:refresh 2.4s ease-in-out infinite;animation-delay:1s}
+@keyframes refresh{0%,100%{opacity:.45}55%{opacity:1}}
+
+/* LEARNING — the wide offline card: illustration left, rows right */
+.learn-card{display:grid;grid-template-columns:270px 1fr;gap:30px;align-items:center}
+.learn-card .lbl .off{font-style:italic;color:var(--dsoft);text-transform:none;letter-spacing:0}
+/* the deploy connector, centered above the middle runtime stage */
+.deploy{display:flex;flex-direction:column;align-items:center;gap:6px;margin:18px 0;
+  font-family:var(--mono);font-size:11.5px;color:var(--dsoft);font-style:italic}
+.deploy-arrow{width:16px;height:38px}
+.deploy-arrow line,.deploy-arrow path{stroke:var(--cool);stroke-width:2;fill:none;stroke-dasharray:4 5;
+  animation:deploydash 1.2s linear infinite}
+@keyframes deploydash{to{stroke-dashoffset:-9}}
+/* the runtime pipeline: three cards with flowing packets between them */
+.pipe-grid{display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;align-items:stretch}
+.stage-card{text-align:left}
+.stage-card .lbl{margin-top:6px}
+.flow{position:relative}
+.flow::before{content:"";position:absolute;top:50%;left:2px;right:2px;height:0;
+  border-top:2px dashed #2c3542}
+.flow i{position:absolute;top:50%;left:0;width:7px;height:7px;margin-top:-3.5px;border-radius:2px;
+  background:var(--cool);animation:flowx 2.4s linear infinite}
+.flow i:nth-child(2){animation-delay:.8s}
+.flow i:nth-child(3){animation-delay:1.6s}
+@keyframes flowx{0%{transform:translateX(0);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateX(27px);opacity:0}}
+.mono-title{font-family:var(--mono);font-weight:700;letter-spacing:-.04em}
+.mono-title .c{color:var(--cool)}
+.machine .intro{color:var(--dsoft)}
+.mcard{background:var(--dark2);border:1px solid var(--dline);border-radius:12px;padding:26px}
+.mcard .lbl{font-family:var(--mono);font-size:11px;color:var(--cool);letter-spacing:.14em;margin-bottom:14px;display:block}
+.mrow{font-family:var(--mono);font-size:13.5px;padding:10px 0;border-bottom:1px dashed var(--dline)}
+.mrow:last-child{border:none}
+.mnote{font-size:13.5px;color:var(--dsoft);margin-top:26px;font-style:italic}
+
+/* ---------- MEET (experience teaser) ---------- */
+.meet{background:var(--paper);color:var(--ink)}
+.meet-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center}
+.meet h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,3.6vw,44px);margin-bottom:14px}
+.meet h2 em{font-style:italic;color:var(--green)}
+.meet-p{color:var(--psoft);max-width:420px}
+.cvbtn{display:inline-block;margin-top:26px;background:var(--ink);color:#fff;font-weight:600;padding:13px 24px;border-radius:999px;font-size:14.5px;transition:opacity .15s}
+.cvbtn:hover{opacity:.85}
+.job{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--pline);font-size:15.5px;gap:12px}
+.job b{font-weight:600}
+.job .d{font-family:var(--mono);font-size:12px;color:var(--psoft);white-space:nowrap}
+
+/* ---------- CONTACT ---------- */
+.contact{padding:130px 0;text-align:center;background:var(--dark);border-top:1px solid var(--dline)}
+.visa{display:inline-block;background:rgba(108,196,232,.1);border:1px solid rgba(108,196,232,.3);color:var(--cool);padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:28px}
+.contact h2{font-size:clamp(34px,5vw,64px);color:#fff}
+.contact h2 .s{font-family:var(--serif);font-style:italic;font-weight:400}
+.contact h2 .m{font-family:var(--mono);font-weight:700;color:var(--cool)}
+.contact p{color:var(--dsoft);margin:20px 0 36px}
+.cbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{padding:14px 26px;border-radius:999px;font-weight:600;font-size:15px;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.p{background:#fff;color:#111}
+.btn.g{border:1px solid var(--dline);color:var(--dtext)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--dline);padding:28px 0;background:var(--dark)}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;color:#59606c;font-family:var(--mono)}
+.foot a:hover{color:var(--dtext)}
+
+/* ---------- responsive ---------- */
+@media(max-width:900px){
+  .hgrid{grid-template-columns:repeat(2,1fr)}
+  .meet-grid{grid-template-columns:1fr;gap:44px}
+  .hero-top nav{display:none}
+  .hero-grid{grid-template-columns:1fr;text-align:center;gap:24px}
+  .hero-copy .sub{margin-left:auto;margin-right:auto}
+  .stage{min-height:56vh}
+  .learn-card{grid-template-columns:1fr;gap:14px;text-align:center}
+  .learn-card .illu{max-width:260px}
+  .pipe-grid{grid-template-columns:1fr}
+  .flow{height:40px}
+  .flow::before{left:50%;right:auto;top:4px;bottom:4px;height:auto;width:0;border-top:none;border-left:2px dashed #2c3542}
+  .flow i{left:50%;margin-left:-3.5px;top:0;animation-name:flowy}
+  @keyframes flowy{0%{transform:translateY(0);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(33px);opacity:0}}
+}
+@media(max-width:560px){
+  section{padding:80px 0}
+  .wrap{padding:0 22px}
+  .hgrid{grid-template-columns:1fr}
+  .hcard.wide{flex-direction:column;gap:10px}
+  .hero-copy h1{font-size:34px}
+  .foot{justify-content:center;text-align:center}
+}
+
+/* ---------- reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}

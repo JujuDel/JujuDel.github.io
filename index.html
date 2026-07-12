@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julien Delclos — Lead Software & Senior Computer Vision Engineer</title>
+<meta name="description" content="Julien Delclos - Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW. I see the world twice: once through a sensor, once through a network. C++, CUDA, PyTorch, TensorRT.">
+<meta name="author" content="Julien Delclos">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="canonical" href="https://jujudel.github.io/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jujudel.github.io/">
+<meta property="og:title" content="Julien Delclos — Computer Vision Engineer">
+<meta property="og:description" content="I see the world twice — once through a sensor, once through a network.">
+<meta property="og:image" content="https://jujudel.github.io/assets/scenes/bay_raw.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     HERO — the live panoptic carousel. Each scene plays
+     INPUT → PANOPTIC SEG (scanline sweep) → INSTANCES (bounding
+     boxes pop in one by one), then the frame morphs to the next
+     scene's native aspect ratio. The top-right chip follows the
+     current mode; the bottom-left one names the scene; the dots
+     switch scenes. All scene data (images, sizes, boxes) lives in
+     the SCENES array at the top of script.js.
+     ============================================================ -->
+<section class="hero" id="top">
+  <header class="hero-top">
+    <span class="brand">julien.delclos</span>
+    <nav>
+      <a href="#human">Human</a>
+      <a href="#machine">Machine</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="cv-btn" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </header>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <h1>I see the world twice.<span class="m">// once through a sensor, once through a network</span></h1>
+      <p class="sub">Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW.</p>
+      <p class="sub">(Yep, that's me on the images!)</p>
+      <div class="scroll-hint">SCROLL ↓</div>
+    </div>
+    <div class="stage">
+      <div class="frame" id="frame">
+        <div id="scenes"></div>
+        <div class="scan" id="scan"></div>
+        <div class="vig"></div>
+        <div class="fchip live"><span class="dot"></span>LIVE</div>
+        <div class="fchip mode" id="mode-chip">INPUT</div>
+        <div class="fchip state" id="state-chip">WHARF</div>
+        <div class="dots" id="dots" aria-label="Scene selector"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HUMAN HALF — hobbies & languages.
+     Hovering a card "detects" the hobby: bracket corners + a label
+     chip (data-det + data-conf on the card — the confidence gets a
+     small random jitter on every hover, courtesy of script.js).
+     To add a hobby: copy one <div class="hcard">…</div> block,
+     including its <span class="det"> detection overlay.
+     The wide "coding" card lists platforms as chips — turn a chip
+     into a link by replacing <span> with <a href="…" target="_blank">.
+     ============================================================ -->
+<section class="human" id="human">
+  <div class="wrap">
+    <span class="sec-no green">01 — THE HUMAN HALF</span>
+    <h2>Made of <em>hobbies</em>, mostly.</h2>
+    <p class="intro">French, exported to Italy, Germany, Sweden, and now Australia. The rest of the time, you'll find me here:</p>
+
+    <div class="hgrid">
+      <div class="hcard" data-det="chess_player" data-conf="87.4">
+        <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">chess_player · 87.4%</b></span>
+        <span class="e">♟️</span><h3>Chess</h3><p>Rating proportional to ego. Currently both are recalibrating.</p>
+        <div class="chips mini">
+          <a class="chip" href="https://www.chess.com/member/LuckyJujuD" target="_blank" rel="noopener">Chess.com</a>
+          <a class="chip" href="https://lichess.org/@/luckyjuju" target="_blank" rel="noopener">Lichess</a>
+        </div>
+      </div>
+      <div class="hcard" data-det="wall_hugger" data-conf="99.1">
+        <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">wall_hugger · 99.1%</b></span>
+        <span class="e">🧗</span><h3>Bouldering</h3><p>Professional wall-hugger. Falls gracefully.</p>
+      </div>
+      <div class="hcard" data-det="skydiver" data-conf="99.9">
+        <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">skydiver · 99.9%</b></span>
+        <span class="e">🪂</span><h3>Skydiving</h3><p>Debugging multi-threaded code is a lot less scary once you've jumped out of a plane.</p>
+      </div>
+      <div class="hcard" data-det="middle_blocker" data-conf="95.0">
+        <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">middle_blocker · 95.0%</b></span>
+        <span class="e">🏐</span><h3>Volleyball</h3><p>Middle blocker. Loud at the net, quieter in code reviews.</p>
+      </div>
+
+      <div class="hcard wide" data-det="nerd" data-conf="100.0">
+        <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">nerd · 100.0%</b></span>
+        <span class="e">⌨️</span>
+        <div>
+          <h3>Code, but for fun</h3>
+          <p>Apparently eight hours a day isn't enough.</p>
+          <div class="chips">
+            <a class="chip" href="https://www.codingame.com/profile/b944cb66159c494961db183c595578915353933" target="_blank" rel="noopener">CodinGame</a>
+            <a class="chip" href="https://www.hackerrank.com/julien_delclos" target="_blank" rel="noopener">HackerRank</a>
+            <a class="chip" href="https://leetcode.com/user1771A/" target="_blank" rel="noopener">LeetCode</a>
+            <span class="chip">LeetGPU</span>
+            <span class="chip">Advent of Code</span>
+            <a class="chip" href="https://leekwars.com/leek/107221" target="_blank" rel="noopener">LeekWars</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="langline">Speaks <span>French</span>, <span>English</span>, some <span>German</span> (and is trying its luck in <span>Chinese</span>).</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     MACHINE HALF — four sections, each with its own animated
+     illustration (they light up when you hover the card):
+       LEARNING (offline — where the models come from)
+         ↓ trained → quantized → shipped
+       INPUT SENSOR → EMBEDDED INFERENCE → POST-PROCESSING
+     The illustrations are small inline SVGs; their shared
+     animations live in style.css under "MACHINE ILLUSTRATIONS".
+     Skills stay deliberately short: ~3 rows each, no bars.
+     ============================================================ -->
+<section class="machine" id="machine">
+  <div class="wrap">
+    <span class="sec-no cool">02 — THE MACHINE HALF</span>
+    <h2 class="mono-title">skills<span class="c">.load()</span></h2>
+    <p class="intro">I turn perception research into systems that run in real time on small hardware. That's the job, in one sentence.</p>
+
+    <!-- LEARNING: the offline stage -->
+    <div class="mcard learn-card">
+      <svg class="illu" viewBox="0 0 250 130" aria-hidden="true">
+        <g class="wires">
+          <line x1="55" y1="35" x2="115" y2="22"/><line x1="55" y1="35" x2="115" y2="55"/><line x1="55" y1="35" x2="115" y2="88"/>
+          <line x1="55" y1="65" x2="115" y2="22"/><line x1="55" y1="65" x2="115" y2="55"/><line x1="55" y1="65" x2="115" y2="88"/>
+          <line x1="55" y1="95" x2="115" y2="22"/><line x1="55" y1="95" x2="115" y2="55"/><line x1="55" y1="95" x2="115" y2="88"/>
+          <line x1="115" y1="22" x2="175" y2="42"/><line x1="115" y1="22" x2="175" y2="75"/>
+          <line x1="115" y1="55" x2="175" y2="42"/><line x1="115" y1="55" x2="175" y2="75"/>
+          <line x1="115" y1="88" x2="175" y2="42"/><line x1="115" y1="88" x2="175" y2="75"/>
+        </g>
+        <g class="col c1"><circle class="node" cx="55" cy="35" r="6"/><circle class="node" cx="55" cy="65" r="6"/><circle class="node" cx="55" cy="95" r="6"/></g>
+        <g class="col c2"><circle class="node" cx="115" cy="22" r="6"/><circle class="node" cx="115" cy="55" r="6"/><circle class="node" cx="115" cy="88" r="6"/></g>
+        <g class="col c3"><circle class="node" cx="175" cy="42" r="6"/><circle class="node" cx="175" cy="75" r="6"/></g>
+        <!-- the loss curve, drawing itself down and to the right -->
+        <line class="axis" x1="200" y1="20" x2="200" y2="112"/>
+        <line class="axis" x1="200" y1="112" x2="246" y2="112"/>
+        <path class="loss" d="M203 30 C 214 85, 224 100, 244 107"/>
+        <text class="tiny" x="223" y="126">loss ↓</text>
+      </svg>
+      <div>
+        <span class="lbl">LEARNING <em class="off">— offline</em></span>
+        <div class="mrow">PyTorch · Datasets &amp; Training</div>
+        <div class="mrow">Detection &amp; Segmentation</div>
+        <div class="mrow">Multitask &amp; Incremental Learning</div>
+      </div>
+    </div>
+
+    <!-- the trained model gets shipped into the runtime pipeline -->
+    <div class="deploy" aria-hidden="true">
+      <svg viewBox="0 0 20 44" class="deploy-arrow"><line x1="10" y1="0" x2="10" y2="34"/><path d="M4 32 L10 42 L16 32"/></svg>
+      <span>Trained → Quantized → Shipped</span>
+    </div>
+
+    <!-- the runtime pipeline: three stages, left to right -->
+    <div class="pipe-grid">
+      <div class="mcard stage-card">
+        <svg class="illu" viewBox="0 0 220 120" aria-hidden="true">
+          <rect class="cam-body" x="76" y="22" width="28" height="10" rx="3"/>
+          <rect class="cam-body" x="62" y="30" width="96" height="56" rx="10"/>
+          <circle class="lens" cx="110" cy="58" r="17"/><circle class="pupil" cx="110" cy="58" r="7"/>
+          <circle class="led" cx="144" cy="41" r="3"/>
+          <text class="tiny" x="110" y="108">Any Camera · Any fps</text>
+        </svg>
+        <span class="lbl">INPUT SENSOR</span>
+        <div class="mrow">Stereo &amp; Depth</div>
+        <div class="mrow">3D Geometry</div>
+        <div class="mrow">SLAM / Visual Odometry</div>
+      </div>
+
+      <div class="flow" aria-hidden="true"><i></i><i></i><i></i></div>
+
+      <div class="mcard stage-card">
+        <svg class="illu" viewBox="0 0 220 120" aria-hidden="true">
+          <!-- an SoC with a little network inside -->
+          <g class="pins">
+            <line x1="75" y1="14" x2="75" y2="24"/><line x1="95" y1="14" x2="95" y2="24"/><line x1="115" y1="14" x2="115" y2="24"/><line x1="135" y1="14" x2="135" y2="24"/>
+            <line x1="75" y1="92" x2="75" y2="102"/><line x1="95" y1="92" x2="95" y2="102"/><line x1="115" y1="92" x2="115" y2="102"/><line x1="135" y1="92" x2="135" y2="102"/>
+            <line x1="55" y1="38" x2="65" y2="38"/><line x1="55" y1="58" x2="65" y2="58"/><line x1="55" y1="78" x2="65" y2="78"/>
+            <line x1="145" y1="38" x2="155" y2="38"/><line x1="145" y1="58" x2="155" y2="58"/><line x1="145" y1="78" x2="155" y2="78"/>
+          </g>
+          <rect class="cam-body" x="65" y="24" width="80" height="68" rx="8"/>
+          <g class="wires">
+            <line x1="84" y1="44" x2="105" y2="58"/><line x1="84" y1="72" x2="105" y2="58"/>
+            <line x1="105" y1="58" x2="126" y2="44"/><line x1="105" y1="58" x2="126" y2="72"/>
+          </g>
+          <g class="col c1"><circle class="node" cx="84" cy="44" r="5"/><circle class="node" cx="84" cy="72" r="5"/></g>
+          <g class="col c2"><circle class="node" cx="105" cy="58" r="5"/></g>
+          <g class="col c3"><circle class="node" cx="126" cy="44" r="5"/><circle class="node" cx="126" cy="72" r="5"/></g>
+          <text class="tiny" x="110" y="114">TensorRT · Real-time</text>
+        </svg>
+        <span class="lbl">EMBEDDED INFERENCE</span>
+        <div class="mrow">TensorRT · CUDA Graphs</div>
+        <div class="mrow">Quantization</div>
+        <div class="mrow">Mostly Jetson (but could be elsewhere)</div>
+      </div>
+
+      <div class="flow" aria-hidden="true"><i></i><i></i><i></i></div>
+
+      <div class="mcard stage-card">
+        <svg class="illu" viewBox="0 0 220 120" aria-hidden="true">
+          <rect class="screen" x="48" y="16" width="124" height="84" rx="9"/>
+          <ellipse class="blob b2" cx="79" cy="36" rx="18" ry="9"/>
+          <path class="blob b1" d="M58 92 q11 -21 24 -14 q11 6 8 14 z"/>
+          <path class="blob b3" d="M124 90 q3 -28 14 -28 q11 0 13 28 z"/>
+          <g class="obox">
+            <rect x="120" y="58" width="35" height="36" rx="2"/>
+            <rect class="otag" x="120" y="47" width="33" height="11" rx="2"/>
+            <text class="olabel" x="136.5" y="55.5">person</text>
+          </g>
+          <text class="tiny" x="110" y="114">Boxes · Masks · 3D</text>
+        </svg>
+        <span class="lbl">POST-PROCESSING</span>
+        <div class="mrow">C++ · CUDA kernels</div>
+        <div class="mrow">Clustering &amp; Tracking</div>
+        <div class="mrow">2D → 3D Geometry</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     WHERE THE TWO HALVES HAVE WORKED — teaser only, the full
+     history lives on LinkedIn. To add a role: copy a .job div.
+     ============================================================ -->
+<section class="meet">
+  <div class="wrap meet-grid">
+    <div>
+      <h2>Where the two halves <em>have worked</em></h2>
+      <p class="meet-p">The short version. The long one (role by role, with the war stories) lives on LinkedIn.</p>
+      <a class="cvbtn" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">Full history on LinkedIn ↗</a>
+    </div>
+    <div>
+      <div class="job"><b>DroneShield</b><span class="d">2026 — Now · Sydney · Australia</span></div>
+      <div class="job"><b>Stereolabs — Lead SW</b><span class="d">2024 — 2026 · Paris · France</span></div>
+      <div class="job"><b>Zenseact (Volvo)</b><span class="d">2022 — 2024 · Göteborg · Sweden</span></div>
+      <div class="job"><b>Bosch (Smart Spraying)</b><span class="d">2021 — 2022 · Stuttgart · Germany</span></div>
+      <div class="job"><b>...</b><span class="d">...</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2><span class="s">Say hello</span> <span class="m">// or send a stack trace</span></h2>
+    <p></p>
+    <div class="cbtns">
+      <a class="btn p" href="mailto:julien.delclos@gmail.com">julien.delclos@gmail.com</a>
+      <a class="btn g" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn g" href="https://github.com/JujuDel" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> julien.delclos · Sydney · Australia</span>
+    <span id="last-updated">last_updated: —</span>
+    <a href="https://www.linkedin.com/in/julien-delclos/" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

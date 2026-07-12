@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- a tiny detection box: bracket corners + label bar, site colors -->
+  <rect width="64" height="64" rx="14" fill="#0b0e14"/>
+  <g stroke="#6cc4e8" stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M14 24 V16 a2 2 0 0 1 2 -2 H24"/>
+    <path d="M40 14 H48 a2 2 0 0 1 2 2 V24"/>
+    <path d="M50 40 V48 a2 2 0 0 1 -2 2 H40"/>
+    <path d="M24 50 H16 a2 2 0 0 1 -2 -2 V40"/>
+  </g>
+  <rect x="26" y="28" width="12" height="8" rx="2" fill="#6cc4e8"/>
+</svg>

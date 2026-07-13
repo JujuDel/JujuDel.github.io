@@ -3,8 +3,187 @@
    Everything configurable lives in the constants below.
    ============================================================ */
 
-/* Bump this when you publish a change — it's shown in the footer. */
-const LAST_UPDATED = "July 2026";
+/* ------------------------------------------------------------
+   i18n — EN/FR toggle (button in the header) + browser-language
+   auto-detect on first visit (no server, so navigator.language
+   is the only signal we get for "visiting from France"). One
+   static page, content swapped client-side:
+     data-i18n="key"      -> el.textContent = dict[key]
+     data-i18n-html="key" -> el.innerHTML   = dict[key]  (strings
+                              with nested markup, e.g. <em>)
+   To add a language: add a dict below + tag elements in
+   index.html. Bump "lastUpdated" per language when you publish.
+   ------------------------------------------------------------ */
+const I18N = {
+  en: {
+    "nav.human": "Human",
+    "nav.machine": "Machine",
+    "nav.contact": "Contact",
+    "hero.title": `I see the world twice.<span class="m">// once through a sensor, once through a network</span>`,
+    "hero.sub1": "Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW.",
+    "hero.sub2": "(Yep, that's me on the images!)",
+    "hero.scroll": "SCROLL ↓",
+    "hero.modes": ["INPUT", "PANOPTIC SEG", "INSTANCES"],
+    "meta.title": "Julien Delclos — Lead Software & Senior Computer Vision Engineer",
+    "meta.desc": "Julien Delclos - Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW. I see the world twice: once through a sensor, once through a network. C++, CUDA, PyTorch, TensorRT.",
+    "og.title": "Julien Delclos — Computer Vision Engineer",
+    "og.desc": "I see the world twice — once through a sensor, once through a network.",
+    "human.secno": "01 — THE HUMAN HALF",
+    "human.h2": `Made of <em>hobbies</em>, mostly.`,
+    "human.intro": "French, exported to Italy, Germany, Sweden, and now Australia. The rest of the time, you'll find me here:",
+    "human.chess.h3": "Chess",
+    "human.chess.p": "Rating proportional to ego. Currently both are recalibrating.",
+    "human.boulder.h3": "Bouldering",
+    "human.boulder.p": "Climb as high as the technical debt. Falls gracefully.",
+    "human.sky.h3": "Skydiving",
+    "human.sky.p": "Debugging multi-threaded code is a lot less scary once you've jumped out of a plane.",
+    "human.volley.h3": "Volleyball",
+    "human.volley.p": "Middle blocker. Loud at the net, quieter in code reviews.",
+    "human.code.h3": "Code, but for fun",
+    "human.code.p": "Apparently eight hours a day isn't enough.",
+    "human.langline": `Speaks <span>French</span>, <span>English</span>, some <span>German</span> (and is trying its luck in <span>Chinese</span>).`,
+    "machine.secno": "02 — THE MACHINE HALF",
+    "machine.intro": "I turn perception research into systems that run in real time on small hardware. That's the job, in one sentence.",
+    "machine.learn.lbl": `LEARNING <em class="off">— offline</em>`,
+    "machine.learn.row1": "PyTorch · Datasets & Training",
+    "machine.learn.row2": "Detection & Segmentation",
+    "machine.learn.row3": "Multitask & Incremental Learning",
+    "machine.deploy": "Trained → Quantized → Shipped",
+    "machine.input.svg": "Any Camera · Any fps",
+    "machine.input.lbl": "INPUT SENSOR",
+    "machine.input.row1": "Stereo & Depth",
+    "machine.input.row2": "3D Geometry",
+    "machine.input.row3": "SLAM / Visual Odometry",
+    "machine.embed.svg": "TensorRT · Real-time",
+    "machine.embed.lbl": "EMBEDDED INFERENCE",
+    "machine.embed.row2": "Quantization",
+    "machine.embed.row3": "Mostly Jetson (but could be elsewhere)",
+    "machine.post.svg": "Boxes · Masks · 3D",
+    "machine.post.lbl": "POST-PROCESSING",
+    "machine.post.row2": "Clustering & Tracking",
+    "machine.post.row3": "2D → 3D Geometry",
+    "meet.h2": `Where the two halves <em>have worked</em>`,
+    "meet.p": "The short version. The long one (role by role, with the war stories) lives on LinkedIn.",
+    "meet.cvbtn": "Full history on LinkedIn ↗",
+    "meet.job1": "2026 — Now · Sydney · Australia",
+    "meet.job2": "2024 — 2026 · Paris · France",
+    "meet.job3": "2022 — 2024 · Göteborg · Sweden",
+    "meet.job4": "2021 — 2022 · Stuttgart · Germany",
+    "contact.h2": `<span class="s">Say hello</span> <span class="m">// or send a stack trace</span>`,
+    "footer.australia": "Australia",
+    "lastUpdated": "July 2026",
+    "langBtn": "FR"
+  },
+  fr: {
+    "nav.human": "Humain",
+    "nav.machine": "Machine",
+    "nav.contact": "Contact",
+    "hero.title": `Je vois le monde deux fois.<span class="m">// une fois via un capteur, une fois via un réseau</span>`,
+    "hero.sub1": "Logiciel · Vision par ordinateur · Deep Learning · Vision 3D | ex-Lead SW chez Stereolabs.",
+    "hero.sub2": "(Oui, c'est bien moi sur les photos !)",
+    "hero.scroll": "DÉFILER ↓",
+    "hero.modes": ["INPUT", "SEG. PANOPTIQUE", "INSTANCES"],
+    "meta.title": "Julien Delclos — Lead Software & Senior Ingénieur Computer Vision",
+    "meta.desc": "Julien Delclos - Logiciel · Vision par ordinateur · Deep Learning · Vision 3D | ex-Lead SW chez Stereolabs. Je vois le monde deux fois : une fois via un capteur, une fois via un réseau. C++, CUDA, PyTorch, TensorRT.",
+    "og.title": "Julien Delclos — Ingénieur Computer Vision",
+    "og.desc": "Je vois le monde deux fois — une fois via un capteur, une fois via un réseau.",
+    "human.secno": "01 — LA MOITIÉ HUMAINE",
+    "human.h2": `Fait de <em>loisirs</em>, surtout.`,
+    "human.intro": "Français, exporté en Italie, en Allemagne, en Suède, et maintenant en Australie. Le reste du temps, tu me trouveras ici :",
+    "human.chess.h3": "Échecs",
+    "human.chess.p": "Classement proportionnel à l'ego. Les deux sont actuellement en recalibrage.",
+    "human.boulder.h3": "Escalade de bloc",
+    "human.boulder.p": "Grimpe aussi haut que la dette technique. Chute avec élégance.",
+    "human.sky.h3": "Parachutisme",
+    "human.sky.p": "Déboguer du code multi-thread fait beaucoup moins peur une fois qu'on a sauté d'un avion.",
+    "human.volley.h3": "Volley-ball",
+    "human.volley.p": "Central au filet. Bruyant au filet, plus discret en code review.",
+    "human.code.h3": "Coder, mais pour le plaisir",
+    "human.code.p": "Apparemment huit heures par jour ne suffisent pas.",
+    "human.langline": `Parle <span>français</span>, <span>anglais</span>, un peu d'<span>allemand</span> (et tente sa chance en <span>chinois</span>).`,
+    "machine.secno": "02 — LA MOITIÉ MACHINE",
+    "machine.intro": "Je transforme la recherche en perception en systèmes qui tournent en temps réel sur du petit matériel embarqué. C'est le métier, en une phrase.",
+    "machine.learn.lbl": `APPRENTISSAGE <em class="off">— hors-ligne</em>`,
+    "machine.learn.row1": "PyTorch · Données & Entraînement",
+    "machine.learn.row2": "Détection & Segmentation",
+    "machine.learn.row3": "Multi-tâche & Apprentissage Incrémental",
+    "machine.deploy": "Entraîné → Quantifié → Déployé",
+    "machine.input.svg": "N'importe quelle caméra · N'importe quel fps",
+    "machine.input.lbl": "CAPTEUR D'ENTRÉE",
+    "machine.input.row1": "Stéréo & Profondeur",
+    "machine.input.row2": "Géométrie 3D",
+    "machine.input.row3": "SLAM / Odométrie visuelle",
+    "machine.embed.svg": "TensorRT · Temps réel",
+    "machine.embed.lbl": "INFÉRENCE EMBARQUÉE",
+    "machine.embed.row2": "Quantification",
+    "machine.embed.row3": "Principalement sur Jetson (mais pourrait tourner ailleurs)",
+    "machine.post.svg": "Boîtes · Masques · 3D",
+    "machine.post.lbl": "POST-TRAITEMENT",
+    "machine.post.row2": "Clustering & Suivi",
+    "machine.post.row3": "Géométrie 2D → 3D",
+    "meet.h2": `Où les deux moitiés <em>ont travaillé</em>`,
+    "meet.p": "La version courte. La longue (poste par poste, avec les anecdotes) est sur LinkedIn.",
+    "meet.cvbtn": "Historique complet sur LinkedIn ↗",
+    "meet.job1": "2026 — Aujourd'hui · Sydney · Australie",
+    "meet.job2": "2024 — 2026 · Paris · France",
+    "meet.job3": "2022 — 2024 · Göteborg · Suède",
+    "meet.job4": "2021 — 2022 · Stuttgart · Allemagne",
+    "contact.h2": `<span class="s">Dis bonjour</span> <span class="m">// ou envoie une stack trace</span>`,
+    "footer.australia": "Australie",
+    "lastUpdated": "Juillet 2026",
+    "langBtn": "EN"
+  }
+};
+
+/* localStorage is unavailable in some privacy modes — fail open to English */
+function detectLang() {
+  try {
+    const saved = localStorage.getItem("lang");
+    if (saved === "en" || saved === "fr") return saved;
+  } catch (e) { /* ignore */ }
+  return (navigator.language || "").toLowerCase().startsWith("fr") ? "fr" : "en";
+}
+let LANG = detectLang();
+
+/* swap every tagged element + the <head> meta to the given language.
+   Safe to call before the hero carousel builds its DOM below (it only
+   touches elements already present in the static HTML / the lang button). */
+function applyLang(lang) {
+  LANG = lang;
+  const dict = I18N[lang];
+  document.documentElement.lang = lang;
+
+  document.getElementById("doc-title").textContent = dict["meta.title"];
+  document.getElementById("meta-desc").setAttribute("content", dict["meta.desc"]);
+  document.getElementById("og-title").setAttribute("content", dict["og.title"]);
+  document.getElementById("og-desc").setAttribute("content", dict["og.desc"]);
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-html");
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+
+  const langBtn = document.getElementById("lang-toggle");
+  if (langBtn) langBtn.textContent = dict["langBtn"];
+
+  const lastUpdatedEl = document.getElementById("last-updated");
+  if (lastUpdatedEl) lastUpdatedEl.textContent = "last_updated: " + dict["lastUpdated"];
+
+  try { localStorage.setItem("lang", lang); } catch (e) { /* ignore */ }
+}
+applyLang(LANG);
+
+document.getElementById("lang-toggle").addEventListener("click", () => {
+  applyLang(LANG === "en" ? "fr" : "en");
+  /* the hero mode chip is built by the carousel below and isn't covered
+     by data-i18n — refresh it immediately instead of waiting for the
+     next phase transition */
+  if (typeof modeChip !== "undefined" && modeChip) modeChip.textContent = I18N[LANG]["hero.modes"][phase];
+});
 
 /* ------------------------------------------------------------
    HERO SCENES — the live panoptic carousel.
@@ -58,11 +237,9 @@ const SCENES = [
 
 /* How long each phase stays on screen, in ms: INPUT, PANOPTIC, INSTANCES. */
 const DUR = [1500, 3400, 3200];
-/* What the top-right chip reads in each phase. */
-const MODES = ["INPUT", "PANOPTIC SEG", "INSTANCES"];
+/* What the top-right chip reads in each phase — per language, see I18N above ("hero.modes"). */
 
-/* ---------- footer stamps ---------- */
-document.getElementById("last-updated").textContent = "last_updated: " + LAST_UPDATED;
+/* ---------- footer stamp ---------- */
 document.getElementById("year").textContent = new Date().getFullYear();
 
 /* ============================================================
@@ -145,7 +322,7 @@ function go(i, ph) {
   }
   si = i; phase = ph;
   [...dotsBox.children].forEach((d, k) => d.classList.toggle("on", k === i));
-  modeChip.textContent = MODES[ph];
+  modeChip.textContent = I18N[LANG]["hero.modes"][ph];
   stateChip.textContent = s.name;
   const ovl = els[i].querySelector(".ovl");
   if (ph === 0)      { ovl.style.transition = "opacity .3s"; ovl.style.opacity = "0"; boxesOff(i); }

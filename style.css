@@ -42,6 +42,11 @@ a{color:inherit;text-decoration:none}
 .hero-top nav a:hover{color:#fff}
 .cv-btn{border:1px solid rgba(255,255,255,.4);padding:7px 16px;border-radius:999px;font-weight:600;transition:background .15s,color .15s}
 .cv-btn:hover{background:#fff;color:#111}
+.hero-actions{display:flex;align-items:center;gap:12px}
+.lang-btn{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-family:var(--mono);
+  font-size:12px;font-weight:700;letter-spacing:.05em;padding:7px 13px;border-radius:999px;cursor:pointer;
+  transition:background .15s,color .15s}
+.lang-btn:hover{background:#fff;color:#111}
 .hero-grid{flex:1;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px;max-width:1250px;margin:0 auto;padding:0 40px 40px;width:100%}
 .hero-copy h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,4.8vw,74px);line-height:1.04;letter-spacing:-.015em;color:#fff}
 .hero-copy h1 .m{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(13px,1.4vw,21px);letter-spacing:-.01em;color:var(--cool);margin-top:18px}

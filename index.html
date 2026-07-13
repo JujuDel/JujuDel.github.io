@@ -3,16 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Julien Delclos — Lead Software & Senior Computer Vision Engineer</title>
-<meta name="description" content="Julien Delclos - Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW. I see the world twice: once through a sensor, once through a network. C++, CUDA, PyTorch, TensorRT.">
+<title id="doc-title">Julien Delclos — Lead Software & Senior Computer Vision Engineer</title>
+<meta id="meta-desc" name="description" content="Julien Delclos - Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW. I see the world twice: once through a sensor, once through a network. C++, CUDA, PyTorch, TensorRT.">
 <meta name="author" content="Julien Delclos">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="canonical" href="https://juliendelclos.com/">
+<!-- hreflang: single URL serves both languages via a client-side toggle, listed for both so this isn't read as duplicate content -->
+<link rel="alternate" hreflang="en" href="https://juliendelclos.com/">
+<link rel="alternate" hreflang="fr" href="https://juliendelclos.com/">
+<link rel="alternate" hreflang="x-default" href="https://juliendelclos.com/">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://juliendelclos.com/">
-<meta property="og:title" content="Julien Delclos — Computer Vision Engineer">
-<meta property="og:description" content="I see the world twice — once through a sensor, once through a network.">
+<meta id="og-title" property="og:title" content="Julien Delclos — Computer Vision Engineer">
+<meta id="og-desc" property="og:description" content="I see the world twice — once through a sensor, once through a network.">
 <meta property="og:image" content="https://juliendelclos.com/assets/scenes/bay_raw.jpg">
 <script type="application/ld+json">
 {
@@ -55,19 +59,22 @@
   <header class="hero-top">
     <span class="brand">julien.delclos</span>
     <nav>
-      <a href="#human">Human</a>
-      <a href="#machine">Machine</a>
-      <a href="#contact">Contact</a>
+      <a href="#human" data-i18n="nav.human">Human</a>
+      <a href="#machine" data-i18n="nav.machine">Machine</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
-    <a class="cv-btn" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <div class="hero-actions">
+      <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch language / Changer de langue">FR</button>
+      <a class="cv-btn" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
   </header>
 
   <div class="hero-grid">
     <div class="hero-copy">
-      <h1>I see the world twice.<span class="m">// once through a sensor, once through a network</span></h1>
-      <p class="sub">Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW.</p>
-      <p class="sub">(Yep, that's me on the images!)</p>
-      <div class="scroll-hint">SCROLL ↓</div>
+      <h1 data-i18n-html="hero.title">I see the world twice.<span class="m">// once through a sensor, once through a network</span></h1>
+      <p class="sub" data-i18n="hero.sub1">Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW.</p>
+      <p class="sub" data-i18n="hero.sub2">(Yep, that's me on the images!)</p>
+      <div class="scroll-hint" data-i18n="hero.scroll">SCROLL ↓</div>
     </div>
     <div class="stage">
       <div class="frame" id="frame">
@@ -95,14 +102,14 @@
      ============================================================ -->
 <section class="human" id="human">
   <div class="wrap">
-    <span class="sec-no green">01 — THE HUMAN HALF</span>
-    <h2>Made of <em>hobbies</em>, mostly.</h2>
-    <p class="intro">French, exported to Italy, Germany, Sweden, and now Australia. The rest of the time, you'll find me here:</p>
+    <span class="sec-no green" data-i18n="human.secno">01 — THE HUMAN HALF</span>
+    <h2 data-i18n-html="human.h2">Made of <em>hobbies</em>, mostly.</h2>
+    <p class="intro" data-i18n="human.intro">French, exported to Italy, Germany, Sweden, and now Australia. The rest of the time, you'll find me here:</p>
 
     <div class="hgrid">
       <div class="hcard" data-det="chess_player" data-conf="87.4">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">chess_player · 87.4%</b></span>
-        <span class="e">♟️</span><h3>Chess</h3><p>Rating proportional to ego. Currently both are recalibrating.</p>
+        <span class="e">♟️</span><h3 data-i18n="human.chess.h3">Chess</h3><p data-i18n="human.chess.p">Rating proportional to ego. Currently both are recalibrating.</p>
         <div class="chips mini">
           <a class="chip" href="https://www.chess.com/member/LuckyJujuD" target="_blank" rel="noopener">Chess.com</a>
           <a class="chip" href="https://lichess.org/@/luckyjuju" target="_blank" rel="noopener">Lichess</a>
@@ -110,23 +117,23 @@
       </div>
       <div class="hcard" data-det="wall_hugger" data-conf="99.1">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">wall_hugger · 99.1%</b></span>
-        <span class="e">🧗</span><h3>Bouldering</h3><p>Professional wall-hugger. Falls gracefully.</p>
+        <span class="e">🧗</span><h3 data-i18n="human.boulder.h3">Bouldering</h3><p data-i18n="human.boulder.p">Professional wall-hugger. Falls gracefully.</p>
       </div>
       <div class="hcard" data-det="skydiver" data-conf="99.9">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">skydiver · 99.9%</b></span>
-        <span class="e">🪂</span><h3>Skydiving</h3><p>Debugging multi-threaded code is a lot less scary once you've jumped out of a plane.</p>
+        <span class="e">🪂</span><h3 data-i18n="human.sky.h3">Skydiving</h3><p data-i18n="human.sky.p">Debugging multi-threaded code is a lot less scary once you've jumped out of a plane.</p>
       </div>
       <div class="hcard" data-det="middle_blocker" data-conf="95.0">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">middle_blocker · 95.0%</b></span>
-        <span class="e">🏐</span><h3>Volleyball</h3><p>Middle blocker. Loud at the net, quieter in code reviews.</p>
+        <span class="e">🏐</span><h3 data-i18n="human.volley.h3">Volleyball</h3><p data-i18n="human.volley.p">Middle blocker. Loud at the net, quieter in code reviews.</p>
       </div>
 
       <div class="hcard wide" data-det="nerd" data-conf="100.0">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">nerd · 100.0%</b></span>
         <span class="e">⌨️</span>
         <div>
-          <h3>Code, but for fun</h3>
-          <p>Apparently eight hours a day isn't enough.</p>
+          <h3 data-i18n="human.code.h3">Code, but for fun</h3>
+          <p data-i18n="human.code.p">Apparently eight hours a day isn't enough.</p>
           <div class="chips">
             <a class="chip" href="https://www.codingame.com/profile/b944cb66159c494961db183c595578915353933" target="_blank" rel="noopener">CodinGame</a>
             <a class="chip" href="https://www.hackerrank.com/julien_delclos" target="_blank" rel="noopener">HackerRank</a>
@@ -139,7 +146,7 @@
       </div>
     </div>
 
-    <p class="langline">Speaks <span>French</span>, <span>English</span>, some <span>German</span> (and is trying its luck in <span>Chinese</span>).</p>
+    <p class="langline" data-i18n-html="human.langline">Speaks <span>French</span>, <span>English</span>, some <span>German</span> (and is trying its luck in <span>Chinese</span>).</p>
   </div>
 </section>
 
@@ -155,9 +162,9 @@
      ============================================================ -->
 <section class="machine" id="machine">
   <div class="wrap">
-    <span class="sec-no cool">02 — THE MACHINE HALF</span>
+    <span class="sec-no cool" data-i18n="machine.secno">02 — THE MACHINE HALF</span>
     <h2 class="mono-title">skills<span class="c">.load()</span></h2>
-    <p class="intro">I turn perception research into systems that run in real time on small hardware. That's the job, in one sentence.</p>
+    <p class="intro" data-i18n="machine.intro">I turn perception research into systems that run in real time on small hardware. That's the job, in one sentence.</p>
 
     <!-- LEARNING: the offline stage -->
     <div class="mcard learn-card">
@@ -180,17 +187,17 @@
         <text class="tiny" x="223" y="126">loss ↓</text>
       </svg>
       <div>
-        <span class="lbl">LEARNING <em class="off">— offline</em></span>
-        <div class="mrow">PyTorch · Datasets &amp; Training</div>
-        <div class="mrow">Detection &amp; Segmentation</div>
-        <div class="mrow">Multitask &amp; Incremental Learning</div>
+        <span class="lbl" data-i18n-html="machine.learn.lbl">LEARNING <em class="off">— offline</em></span>
+        <div class="mrow" data-i18n="machine.learn.row1">PyTorch · Datasets &amp; Training</div>
+        <div class="mrow" data-i18n="machine.learn.row2">Detection &amp; Segmentation</div>
+        <div class="mrow" data-i18n="machine.learn.row3">Multitask &amp; Incremental Learning</div>
       </div>
     </div>
 
     <!-- the trained model gets shipped into the runtime pipeline -->
     <div class="deploy" aria-hidden="true">
       <svg viewBox="0 0 20 44" class="deploy-arrow"><line x1="10" y1="0" x2="10" y2="34"/><path d="M4 32 L10 42 L16 32"/></svg>
-      <span>Trained → Quantized → Shipped</span>
+      <span data-i18n="machine.deploy">Trained → Quantized → Shipped</span>
     </div>
 
     <!-- the runtime pipeline: three stages, left to right -->
@@ -201,12 +208,12 @@
           <rect class="cam-body" x="62" y="30" width="96" height="56" rx="10"/>
           <circle class="lens" cx="110" cy="58" r="17"/><circle class="pupil" cx="110" cy="58" r="7"/>
           <circle class="led" cx="144" cy="41" r="3"/>
-          <text class="tiny" x="110" y="108">Any Camera · Any fps</text>
+          <text class="tiny" x="110" y="108" data-i18n="machine.input.svg">Any Camera · Any fps</text>
         </svg>
-        <span class="lbl">INPUT SENSOR</span>
-        <div class="mrow">Stereo &amp; Depth</div>
-        <div class="mrow">3D Geometry</div>
-        <div class="mrow">SLAM / Visual Odometry</div>
+        <span class="lbl" data-i18n="machine.input.lbl">INPUT SENSOR</span>
+        <div class="mrow" data-i18n="machine.input.row1">Stereo &amp; Depth</div>
+        <div class="mrow" data-i18n="machine.input.row2">3D Geometry</div>
+        <div class="mrow" data-i18n="machine.input.row3">SLAM / Visual Odometry</div>
       </div>
 
       <div class="flow" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -228,12 +235,12 @@
           <g class="col c1"><circle class="node" cx="84" cy="44" r="5"/><circle class="node" cx="84" cy="72" r="5"/></g>
           <g class="col c2"><circle class="node" cx="105" cy="58" r="5"/></g>
           <g class="col c3"><circle class="node" cx="126" cy="44" r="5"/><circle class="node" cx="126" cy="72" r="5"/></g>
-          <text class="tiny" x="110" y="114">TensorRT · Real-time</text>
+          <text class="tiny" x="110" y="114" data-i18n="machine.embed.svg">TensorRT · Real-time</text>
         </svg>
-        <span class="lbl">EMBEDDED INFERENCE</span>
+        <span class="lbl" data-i18n="machine.embed.lbl">EMBEDDED INFERENCE</span>
         <div class="mrow">TensorRT · CUDA Graphs</div>
-        <div class="mrow">Quantization</div>
-        <div class="mrow">Mostly Jetson (but could be elsewhere)</div>
+        <div class="mrow" data-i18n="machine.embed.row2">Quantization</div>
+        <div class="mrow" data-i18n="machine.embed.row3">Mostly Jetson (but could be elsewhere)</div>
       </div>
 
       <div class="flow" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -249,12 +256,12 @@
             <rect class="otag" x="120" y="47" width="33" height="11" rx="2"/>
             <text class="olabel" x="136.5" y="55.5">person</text>
           </g>
-          <text class="tiny" x="110" y="114">Boxes · Masks · 3D</text>
+          <text class="tiny" x="110" y="114" data-i18n="machine.post.svg">Boxes · Masks · 3D</text>
         </svg>
-        <span class="lbl">POST-PROCESSING</span>
+        <span class="lbl" data-i18n="machine.post.lbl">POST-PROCESSING</span>
         <div class="mrow">C++ · CUDA kernels</div>
-        <div class="mrow">Clustering &amp; Tracking</div>
-        <div class="mrow">2D → 3D Geometry</div>
+        <div class="mrow" data-i18n="machine.post.row2">Clustering &amp; Tracking</div>
+        <div class="mrow" data-i18n="machine.post.row3">2D → 3D Geometry</div>
       </div>
     </div>
 
@@ -268,15 +275,15 @@
 <section class="meet">
   <div class="wrap meet-grid">
     <div>
-      <h2>Where the two halves <em>have worked</em></h2>
-      <p class="meet-p">The short version. The long one (role by role, with the war stories) lives on LinkedIn.</p>
-      <a class="cvbtn" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">Full history on LinkedIn ↗</a>
+      <h2 data-i18n-html="meet.h2">Where the two halves <em>have worked</em></h2>
+      <p class="meet-p" data-i18n="meet.p">The short version. The long one (role by role, with the war stories) lives on LinkedIn.</p>
+      <a class="cvbtn" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener" data-i18n="meet.cvbtn">Full history on LinkedIn ↗</a>
     </div>
     <div>
-      <div class="job"><b>DroneShield</b><span class="d">2026 — Now · Sydney · Australia</span></div>
-      <div class="job"><b>Stereolabs — Lead SW</b><span class="d">2024 — 2026 · Paris · France</span></div>
-      <div class="job"><b>Zenseact (Volvo)</b><span class="d">2022 — 2024 · Göteborg · Sweden</span></div>
-      <div class="job"><b>Bosch (Smart Spraying)</b><span class="d">2021 — 2022 · Stuttgart · Germany</span></div>
+      <div class="job"><b>DroneShield</b><span class="d" data-i18n="meet.job1">2026 — Now · Sydney · Australia</span></div>
+      <div class="job"><b>Stereolabs — Lead SW</b><span class="d" data-i18n="meet.job2">2024 — 2026 · Paris · France</span></div>
+      <div class="job"><b>Zenseact (Volvo)</b><span class="d" data-i18n="meet.job3">2022 — 2024 · Göteborg · Sweden</span></div>
+      <div class="job"><b>Bosch (Smart Spraying)</b><span class="d" data-i18n="meet.job4">2021 — 2022 · Stuttgart · Germany</span></div>
       <div class="job"><b>...</b><span class="d">...</span></div>
     </div>
   </div>
@@ -287,7 +294,7 @@
      ============================================================ -->
 <section class="contact" id="contact">
   <div class="wrap">
-    <h2><span class="s">Say hello</span> <span class="m">// or send a stack trace</span></h2>
+    <h2 data-i18n-html="contact.h2"><span class="s">Say hello</span> <span class="m">// or send a stack trace</span></h2>
     <p></p>
     <div class="cbtns">
       <a class="btn p" href="mailto:julien.delclos@gmail.com">julien.delclos@gmail.com</a>
@@ -299,7 +306,7 @@
 
 <footer>
   <div class="wrap foot">
-    <span>© <span id="year">2026</span> julien.delclos · Sydney · Australia</span>
+    <span>© <span id="year">2026</span> julien.delclos · Sydney · <span data-i18n="footer.australia">Australia</span></span>
     <span id="last-updated">last_updated: —</span>
     <a href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>

@@ -41,6 +41,7 @@ const I18N = {
     "human.volley.p": "Middle blocker. Loud at the net, quieter in code reviews.",
     "human.code.h3": "Code, but for fun",
     "human.code.p": "Apparently eight hours a day isn't enough.",
+    "human.code.showtracker": "ShowTracker — a TV series tracker I built and maintain",
     "human.langline": `Speaks <span>French</span>, <span>English</span>, some <span>German</span> (and is trying its luck in <span>Chinese</span>).`,
     "machine.secno": "02 — THE MACHINE HALF",
     "machine.intro": "I turn perception research into systems that run in real time on small hardware. That's the job, in one sentence.",
@@ -70,6 +71,7 @@ const I18N = {
     "meet.job3": "2022 — 2024 · Göteborg · Sweden",
     "meet.job4": "2021 — 2022 · Stuttgart · Germany",
     "contact.h2": `<span class="s">Say hello</span> <span class="m">// or send a stack trace</span>`,
+    "contact.visa": "📍 Based in Sydney · UTC+10",
     "footer.australia": "Australia",
     "lastUpdated": "July 2026",
     "langBtn": "FR"
@@ -100,6 +102,7 @@ const I18N = {
     "human.volley.p": "Central au filet. Bruyant au filet, plus discret en code review.",
     "human.code.h3": "Coder, mais pour le plaisir",
     "human.code.p": "Apparemment huit heures par jour ne suffisent pas.",
+    "human.code.showtracker": "ShowTracker — un suivi de séries que j'ai développé et que je maintiens",
     "human.langline": `Parle <span>français</span>, <span>anglais</span>, un peu d'<span>allemand</span> (et tente sa chance en <span>chinois</span>).`,
     "machine.secno": "02 — LA MOITIÉ MACHINE",
     "machine.intro": "Je transforme la recherche en perception en systèmes qui tournent en temps réel sur du petit matériel embarqué. C'est le métier, en une phrase.",
@@ -129,6 +132,7 @@ const I18N = {
     "meet.job3": "2022 — 2024 · Göteborg · Suède",
     "meet.job4": "2021 — 2022 · Stuttgart · Allemagne",
     "contact.h2": `<span class="s">Dis bonjour</span> <span class="m">// ou envoie une stack trace</span>`,
+    "contact.visa": "📍 Basé à Sydney · UTC+10",
     "footer.australia": "Australie",
     "lastUpdated": "Juillet 2026",
     "langBtn": "EN"
@@ -157,6 +161,8 @@ function applyLang(lang) {
   document.getElementById("meta-desc").setAttribute("content", dict["meta.desc"]);
   document.getElementById("og-title").setAttribute("content", dict["og.title"]);
   document.getElementById("og-desc").setAttribute("content", dict["og.desc"]);
+  document.getElementById("tw-title").setAttribute("content", dict["og.title"]);
+  document.getElementById("tw-desc").setAttribute("content", dict["og.desc"]);
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
@@ -165,6 +171,12 @@ function applyLang(lang) {
   document.querySelectorAll("[data-i18n-html]").forEach((el) => {
     const key = el.getAttribute("data-i18n-html");
     if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  /* data-i18n-title -> the title="" tooltip, for elements whose visible text
+     stays the same in both languages (e.g. the ShowTracker chip) */
+  document.querySelectorAll("[data-i18n-title]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-title");
+    if (dict[key] !== undefined) el.setAttribute("title", dict[key]);
   });
 
   const langBtn = document.getElementById("lang-toggle");
@@ -267,7 +279,11 @@ const els = SCENES.map((s, i) => {
   }).join("");
   d.innerHTML = `<img src="${s.photo}" alt="Scene: ${s.name.toLowerCase()}"><img class="ovl" alt=""><div class="bxs">${bxs}</div>`;
   scenesBox.appendChild(d);
-  const dot = document.createElement("span");
+  /* real <button>s, not <span>s: the scene picker has to be reachable by
+     keyboard, and a span with an aria-label but no role isn't announced
+     reliably either. */
+  const dot = document.createElement("button");
+  dot.type = "button";
   dot.setAttribute("aria-label", "Scene: " + s.name.toLowerCase());
   dot.addEventListener("click", () => { stop(); go(i, reducedMotion ? 2 : 0); if (!reducedMotion) loop(); });
   dotsBox.appendChild(dot);
@@ -321,7 +337,10 @@ function go(i, ph) {
     if (i !== si) { const o = els[si].querySelector(".ovl"); o.style.transition = "none"; o.style.opacity = "0"; boxesOff(si); }
   }
   si = i; phase = ph;
-  [...dotsBox.children].forEach((d, k) => d.classList.toggle("on", k === i));
+  [...dotsBox.children].forEach((d, k) => {
+    d.classList.toggle("on", k === i);
+    d.setAttribute("aria-current", k === i ? "true" : "false");
+  });
   modeChip.textContent = I18N[LANG]["hero.modes"][ph];
   stateChip.textContent = s.name;
   const ovl = els[i].querySelector(".ovl");
@@ -353,6 +372,138 @@ window.addEventListener("resize", () => {
 window.addEventListener("load", () => {
   SCENES.forEach(s => { new Image().src = s.photo; new Image().src = s.pan; new Image().src = s.inst; });
 });
+
+/* ============================================================
+   LIVE RATINGS — the chess card pulls real numbers from the two
+   public APIs (no key, no auth, both CORS-clean from this origin).
+
+   Design rules, in order of importance:
+     1. It can never look broken. The numbers already in index.html
+        are the fallback; we only ever overwrite them on success.
+        A failed fetch leaves the card exactly as served.
+     2. It costs nothing on load. Nothing fires until the card is
+        actually scrolled into view.
+     3. It's polite. Results are cached in localStorage for 6h, so
+        a repeat visitor hits the APIs once a session at most.
+     4. It picks the format you actually play — the perf with the
+        most games — instead of hardcoding "blitz" and going stale
+        the day you switch to rapid. Perfs with 0 games are skipped
+        (Lichess hands out a provisional 1500 for those).
+   ============================================================ */
+const RATING_TTL = 6 * 60 * 60 * 1000;   /* 6 hours */
+const RATING_TIMEOUT = 4000;             /* give up rather than hang */
+
+/* fetch + JSON with a hard timeout; resolves to null on any problem */
+async function getJSON(url) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), RATING_TIMEOUT);
+  try {
+    const r = await fetch(url, { signal: ctl.signal });
+    return r.ok ? await r.json() : null;
+  } catch (e) {
+    return null;                          /* offline, CORS, 429, abort — all the same to us */
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+/* Which time control to show, out of {format: {rating, games}}.
+
+   Not the most-played one: on Chess.com that's blitz (650 games) while the
+   rapid rating is 200 points higher off 400 games, and rapid is the better
+   measure of playing strength anyway. So: fixed preference order, longest
+   time control first, and take the first one with a real sample behind it.
+   MIN_GAMES exists because Lichess reports every unplayed pool as a
+   provisional 1500 — without it, a format you've never touched wins. */
+const PERF_ORDER = ["rapid", "blitz", "bullet", "classical", "daily"];
+const MIN_GAMES = 20;
+
+function preferredPerf(perfs) {
+  for (const name of PERF_ORDER) {
+    const p = perfs[name];
+    if (p && p.rating && p.games >= MIN_GAMES) return { name, rating: p.rating, games: p.games };
+  }
+  /* nothing clears the bar (new account?) — fall back to whatever has been
+     played most, so the card still shows something real */
+  let best = null;
+  for (const [name, p] of Object.entries(perfs)) {
+    if (!p || !p.games || !p.rating) continue;
+    if (!best || p.games > best.games) best = { name, rating: p.rating, games: p.games };
+  }
+  return best;
+}
+
+async function fetchChessCom() {
+  const j = await getJSON("https://api.chess.com/pub/player/luckyjujud/stats");
+  if (!j) return null;
+  const perfs = {};
+  for (const key of ["rapid", "blitz", "bullet", "daily"]) {
+    const s = j["chess_" + key];
+    if (!s || !s.last) continue;
+    const rec = s.record || {};
+    perfs[key] = { rating: s.last.rating, games: (rec.win || 0) + (rec.loss || 0) + (rec.draw || 0) };
+  }
+  return preferredPerf(perfs);
+}
+
+async function fetchLichess() {
+  const j = await getJSON("https://lichess.org/api/user/luckyjuju");
+  if (!j || !j.perfs) return null;
+  const perfs = {};
+  for (const key of ["bullet", "blitz", "rapid", "classical"]) {
+    const p = j.perfs[key];
+    if (p) perfs[key] = { rating: p.rating, games: p.games };
+  }
+  return preferredPerf(perfs);
+}
+
+const RATING_FETCHERS = { chesscom: fetchChessCom, lichess: fetchLichess };
+
+function paintRating(el, perf) {
+  if (!perf || !perf.rating) return;      /* rule 1: leave the fallback alone */
+  el.querySelector(".rv").innerHTML = `<b>${perf.rating}</b> <i>${perf.name}</i>`;
+  el.classList.add("is-live");
+}
+
+async function loadRatings() {
+  const box = document.getElementById("ratings");
+  if (!box) return;
+
+  /* warm start from cache so a repeat visit paints instantly */
+  let cache = {};
+  try {
+    const raw = localStorage.getItem("ratings");
+    if (raw) {
+      const c = JSON.parse(raw);
+      if (c && Date.now() - c.at < RATING_TTL) cache = c.data || {};
+    }
+  } catch (e) { /* private mode, corrupt JSON — just refetch */ }
+
+  const fresh = {};
+  await Promise.all([...box.querySelectorAll(".rating")].map(async (el) => {
+    const src = el.dataset.src;
+    if (cache[src]) { paintRating(el, cache[src]); fresh[src] = cache[src]; return; }
+    const perf = await RATING_FETCHERS[src]?.();
+    if (perf) { paintRating(el, perf); fresh[src] = perf; }
+  }));
+
+  if (Object.keys(fresh).length) {
+    try { localStorage.setItem("ratings", JSON.stringify({ at: Date.now(), data: fresh })); } catch (e) { /* ignore */ }
+  }
+}
+
+/* rule 2: nothing happens until the card is on screen */
+{
+  const box = document.getElementById("ratings");
+  if (box && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries, obs) => {
+      if (entries.some(e => e.isIntersecting)) { obs.disconnect(); loadRatings(); }
+    }, { rootMargin: "200px" });
+    io.observe(box);
+  } else if (box) {
+    window.addEventListener("load", loadRatings);
+  }
+}
 
 /* ============================================================
    HOBBIES — hover "detections": the confidence re-computes a

@@ -6,30 +6,53 @@
 <title id="doc-title">Julien Delclos — Lead Software & Senior Computer Vision Engineer</title>
 <meta id="meta-desc" name="description" content="Julien Delclos - Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW. I see the world twice: once through a sensor, once through a network. C++, CUDA, PyTorch, TensorRT.">
 <meta name="author" content="Julien Delclos">
+<meta name="theme-color" content="#0b0e14">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="canonical" href="https://juliendelclos.com/">
+<!-- the hero's first frame, fetched before script.js gets a chance to ask for it -->
+<link rel="preload" as="image" href="assets/scenes/wharf_raw.jpg">
 <!-- hreflang: single URL serves both languages via a client-side toggle, listed for both so this isn't read as duplicate content -->
 <link rel="alternate" hreflang="en" href="https://juliendelclos.com/">
 <link rel="alternate" hreflang="fr" href="https://juliendelclos.com/">
 <link rel="alternate" hreflang="x-default" href="https://juliendelclos.com/">
-<!-- Open Graph -->
+<!-- Open Graph / Twitter — og-cover.jpg is the bay scene split down the middle:
+     raw photo on the left, panoptic masks on the right. It says what the whole
+     site says, in one image, at link-preview size. Regenerate it with
+     tools/make-og.py if the scene ever changes. -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://juliendelclos.com/">
 <meta id="og-title" property="og:title" content="Julien Delclos — Computer Vision Engineer">
 <meta id="og-desc" property="og:description" content="I see the world twice — once through a sensor, once through a network.">
-<meta property="og:image" content="https://juliendelclos.com/assets/scenes/bay_raw.jpg">
+<meta property="og:image" content="https://juliendelclos.com/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta id="og-img-alt" property="og:image:alt" content="A photo split in two: the raw frame on the left, the same frame covered in panoptic segmentation masks on the right.">
+<meta name="twitter:card" content="summary_large_image">
+<meta id="tw-title" name="twitter:title" content="Julien Delclos — Computer Vision Engineer">
+<meta id="tw-desc" name="twitter:description" content="I see the world twice — once through a sensor, once through a network.">
+<meta name="twitter:image" content="https://juliendelclos.com/assets/og-cover.jpg">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Julien Delclos",
   "url": "https://juliendelclos.com/",
-  "image": "https://juliendelclos.com/assets/scenes/bay_raw.jpg",
+  "image": "https://juliendelclos.com/assets/og-cover.jpg",
   "jobTitle": "Lead Software & Senior Computer Vision Engineer",
   "description": "Software · Computer Vision · Deep Learning · 3D Vision engineer, ex-Stereolabs Lead Software.",
+  "knowsAbout": ["Computer Vision", "Deep Learning", "3D Vision", "Embedded Inference", "C++", "CUDA", "PyTorch", "TensorRT"],
+  "knowsLanguage": ["fr", "en", "de"],
+  "worksFor": { "@type": "Organization", "name": "DroneShield" },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Sydney",
+    "addressRegion": "NSW",
+    "addressCountry": "AU"
+  },
   "sameAs": [
     "https://www.linkedin.com/in/julien-delclos-19b292106/",
     "https://github.com/JujuDel",
+    "https://showtracker.dev/",
     "https://www.chess.com/member/LuckyJujuD",
     "https://lichess.org/@/luckyjuju",
     "https://www.codingame.com/profile/b944cb66159c494961db183c595578915353933",
@@ -84,7 +107,7 @@
         <div class="fchip live"><span class="dot"></span>LIVE</div>
         <div class="fchip mode" id="mode-chip">INPUT</div>
         <div class="fchip state" id="state-chip">WHARF</div>
-        <div class="dots" id="dots" aria-label="Scene selector"></div>
+        <div class="dots" id="dots" role="group" aria-label="Scene selector"></div>
       </div>
     </div>
   </div>
@@ -110,14 +133,25 @@
       <div class="hcard" data-det="chess_player" data-conf="87.4">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">chess_player · 87.4%</b></span>
         <span class="e">♟️</span><h3 data-i18n="human.chess.h3">Chess</h3><p data-i18n="human.chess.p">Rating proportional to ego. Currently both are recalibrating.</p>
-        <div class="chips mini">
-          <a class="chip" href="https://www.chess.com/member/LuckyJujuD" target="_blank" rel="noopener">Chess.com</a>
-          <a class="chip" href="https://lichess.org/@/luckyjuju" target="_blank" rel="noopener">Lichess</a>
+        <!-- Ratings are fetched live from the two public APIs when this card
+             scrolls into view (see "LIVE RATINGS" in script.js). The numbers
+             below are the last known values, shipped as a static fallback:
+             if the fetch fails the card just shows these, minus the LIVE dot.
+             Nothing ever renders empty. -->
+        <div class="ratings" id="ratings">
+          <a class="rating" href="https://www.chess.com/member/LuckyJujuD" target="_blank" rel="noopener" data-src="chesscom">
+            <span class="rl">Chess.com</span>
+            <span class="rv"><b>1934</b> <i>rapid</i></span>
+          </a>
+          <a class="rating" href="https://lichess.org/@/luckyjuju" target="_blank" rel="noopener" data-src="lichess">
+            <span class="rl">Lichess</span>
+            <span class="rv"><b>1983</b> <i>blitz</i></span>
+          </a>
         </div>
       </div>
       <div class="hcard" data-det="wall_hugger" data-conf="99.1">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">wall_hugger · 99.1%</b></span>
-        <span class="e">🧗</span><h3 data-i18n="human.boulder.h3">Bouldering</h3><p data-i18n="human.boulder.p">Professional wall-hugger. Falls gracefully.</p>
+        <span class="e">🧗</span><h3 data-i18n="human.boulder.h3">Bouldering</h3><p data-i18n="human.boulder.p">Climb as high as the technical debt. Falls gracefully.</p>
       </div>
       <div class="hcard" data-det="skydiver" data-conf="99.9">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">skydiver · 99.9%</b></span>
@@ -135,6 +169,11 @@
           <h3 data-i18n="human.code.h3">Code, but for fun</h3>
           <p data-i18n="human.code.p">Apparently eight hours a day isn't enough.</p>
           <div class="chips">
+            <!-- a shipped side project, not a practice platform — .ship gives it
+                 the green dot + filled style so it doesn't read as one more
+                 puzzle site in the row -->
+            <a class="chip ship" href="https://showtracker.dev/" target="_blank" rel="noopener" data-i18n-title="human.code.showtracker"
+               title="ShowTracker — a TV series tracker I built and maintain">ShowTracker ↗</a>
             <a class="chip" href="https://www.codingame.com/profile/b944cb66159c494961db183c595578915353933" target="_blank" rel="noopener">CodinGame</a>
             <a class="chip" href="https://www.hackerrank.com/julien_delclos" target="_blank" rel="noopener">HackerRank</a>
             <a class="chip" href="https://leetcode.com/user1771A/" target="_blank" rel="noopener">LeetCode</a>
@@ -294,8 +333,11 @@
      ============================================================ -->
 <section class="contact" id="contact">
   <div class="wrap">
+    <!-- availability / location badge. Deliberately factual: where I am and
+         what timezone, which is what someone reaching out actually needs.
+         Swap the text via the "contact.visa" key in script.js. -->
+    <span class="visa" data-i18n="contact.visa">📍 Based in Sydney · UTC+10</span>
     <h2 data-i18n-html="contact.h2"><span class="s">Say hello</span> <span class="m">// or send a stack trace</span></h2>
-    <p></p>
     <div class="cbtns">
       <a class="btn p" href="mailto:julien.delclos@gmail.com">julien.delclos@gmail.com</a>
       <a class="btn g" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">LinkedIn</a>
@@ -313,5 +355,11 @@
 </footer>
 
 <script src="script.js"></script>
+<!-- GoatCounter: no cookies, no personal data, nothing to consent to.
+     REQUIRES a free account on https://www.goatcounter.com/ with the site
+     code "juliendelclos" — until that exists this script 404s silently and
+     the page is completely unaffected. -->
+<script data-goatcounter="https://juliendelclos.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

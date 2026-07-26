@@ -47,11 +47,13 @@ a{color:inherit;text-decoration:none}
   font-size:12px;font-weight:700;letter-spacing:.05em;padding:7px 13px;border-radius:999px;cursor:pointer;
   transition:background .15s,color .15s}
 .lang-btn:hover{background:#fff;color:#111}
-.hero-grid{flex:1;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px;max-width:1250px;margin:0 auto;padding:0 40px 40px;width:100%}
+/* same max-width + padding as .wrap, so the h1 sits on the exact same left
+   edge as every section heading below it. The header above stays full-bleed
+   on purpose. */
+.hero-grid{flex:1;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px;max-width:1140px;margin:0 auto;padding:0 36px 40px;width:100%}
 .hero-copy h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,4.8vw,74px);line-height:1.04;letter-spacing:-.015em;color:#fff}
 .hero-copy h1 .m{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(13px,1.4vw,21px);letter-spacing:-.01em;color:var(--cool);margin-top:18px}
 .hero-copy .sub{margin-top:20px;color:rgba(255,255,255,.72);font-size:17px;max-width:480px}
-.hero-copy .sub b{color:#fff;font-weight:600}
 .scroll-hint{margin-top:26px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.2em}
 
 /* the carousel frame — morphs to each scene's native aspect ratio */
@@ -87,8 +89,11 @@ a{color:inherit;text-decoration:none}
 .fchip.mode{top:14px;right:14px;font-weight:700;color:#fff}
 .fchip.state{bottom:16px;left:14px;color:#cfd3dd}
 .dots{position:absolute;bottom:22px;right:16px;z-index:5;display:flex;gap:7px}
-.dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:.3s;box-shadow:0 0 4px rgba(0,0,0,.6)}
-.dots span.on{background:#fff;transform:scale(1.25)}
+/* real buttons (keyboard-reachable) stripped back to dots */
+.dots button{width:7px;height:7px;padding:0;border:none;border-radius:50%;background:rgba(255,255,255,.35);
+  cursor:pointer;transition:.3s;box-shadow:0 0 4px rgba(0,0,0,.6);-webkit-appearance:none;appearance:none}
+.dots button.on{background:#fff;transform:scale(1.25)}
+.dots button:focus-visible{outline:2px solid var(--cool);outline-offset:3px}
 .vig{position:absolute;inset:0;pointer-events:none;z-index:2;
   background:linear-gradient(180deg,rgba(0,0,0,.34),transparent 18%,transparent 78%,rgba(0,0,0,.42))}
 
@@ -138,8 +143,36 @@ h2{font-size:clamp(34px,4.5vw,54px);letter-spacing:-.01em;line-height:1.1}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .chip{font-family:var(--mono);font-size:12px;border:1px solid var(--pline);background:var(--paper);border-radius:999px;padding:5px 13px;color:var(--ink)}
 a.chip:hover{border-color:var(--green);color:var(--green)}
-.chips.mini{margin-top:12px}
-.chips.mini .chip{font-size:11px;padding:4px 10px}
+/* .ship — a project that actually shipped, as opposed to a practice platform */
+.chip.ship{border-color:var(--green);background:rgba(30,122,95,.08);color:var(--green);font-weight:700}
+.chip.ship::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--green);margin-right:7px;vertical-align:1px}
+a.chip.ship:hover{background:var(--green);color:#fff}
+a.chip.ship:hover::before{background:#fff}
+
+/* live chess ratings — the numbers in the HTML are the fallback, script.js
+   overwrites them and adds .is-live (the pulsing dot) only when a fetch wins.
+   Two equal grid columns rather than flex-wrap: the card is a quarter of the
+   row and the two boxes were a few pixels too wide to sit side by side, so
+   they kept dropping onto separate lines. 1fr 1fr makes them share whatever
+   width there is and never stack. */
+.ratings{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.rating{display:flex;flex-direction:column;gap:2px;min-width:0;font-family:var(--mono);
+  border:1px solid rgba(30,122,95,.22);background:rgba(30,122,95,.05);border-radius:8px;
+  padding:9px 10px;transition:border-color .15s,background .15s,transform .15s}
+.rating:hover{border-color:var(--green);background:rgba(30,122,95,.11);transform:translateY(-1px)}
+.rating .rl{font-size:9.5px;color:var(--psoft);letter-spacing:.03em;display:flex;align-items:center;gap:5px;white-space:nowrap}
+/* rating and time control stack, rather than sitting on one line: "1934 rapid"
+   only just fitted the 98px box, and a longer control ("classical", "bullet")
+   would have overflowed it. Stacked, the widest thing in the box is the
+   platform name — 13px of headroom even in the worst case, measured with the
+   real JetBrains Mono at the live layout width. */
+.rating .rv{display:block;white-space:nowrap;line-height:1.05}
+.rating .rv b{display:block;font-size:21px;font-weight:700;color:var(--green);letter-spacing:-.03em}
+.rating .rv i{display:block;font-style:normal;font-size:9.5px;color:var(--psoft)}
+.rating.is-live .rl::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green);flex:none;
+  animation:rate-pulse 1.8s ease-in-out infinite}
+@keyframes rate-pulse{0%,100%{box-shadow:0 0 0 0 rgba(30,122,95,.6)}55%{box-shadow:0 0 0 5px rgba(30,122,95,0)}}
 .langline{margin-top:44px;font-family:var(--serif);font-style:italic;font-size:21px}
 .langline span{color:var(--green)}
 
@@ -213,7 +246,6 @@ a.chip:hover{border-color:var(--green);color:var(--green)}
 .mcard .lbl{font-family:var(--mono);font-size:11px;color:var(--cool);letter-spacing:.14em;margin-bottom:14px;display:block}
 .mrow{font-family:var(--mono);font-size:13.5px;padding:10px 0;border-bottom:1px dashed var(--dline)}
 .mrow:last-child{border:none}
-.mnote{font-size:13.5px;color:var(--dsoft);margin-top:26px;font-style:italic}
 
 /* ---------- MEET (experience teaser) ---------- */
 .meet{background:var(--paper);color:var(--ink)}
@@ -229,7 +261,8 @@ a.chip:hover{border-color:var(--green);color:var(--green)}
 
 /* ---------- CONTACT ---------- */
 .contact{padding:130px 0;text-align:center;background:var(--dark);border-top:1px solid var(--dline)}
-.visa{display:inline-block;background:rgba(108,196,232,.1);border:1px solid rgba(108,196,232,.3);color:var(--cool);padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:28px}
+.visa{display:inline-block;background:rgba(108,196,232,.1);border:1px solid rgba(108,196,232,.3);color:var(--cool);
+  padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:28px;font-family:var(--mono);letter-spacing:.02em}
 .contact h2{font-size:clamp(34px,5vw,64px);color:#fff}
 .contact h2 .s{font-family:var(--serif);font-style:italic;font-weight:400}
 .contact h2 .m{font-family:var(--mono);font-weight:700;color:var(--cool)}
@@ -249,7 +282,10 @@ footer{border-top:1px solid var(--dline);padding:28px 0;background:var(--dark)}
 @media(max-width:900px){
   .hgrid{grid-template-columns:repeat(2,1fr)}
   .meet-grid{grid-template-columns:1fr;gap:44px}
-  .hero-top nav{display:none}
+  /* the nav used to be display:none here, which left phones with no way to
+     jump to a section at all — wrap it onto its own row instead */
+  .hero-top{flex-wrap:wrap;gap:14px;padding:20px 22px}
+  .hero-top nav{order:3;width:100%;justify-content:center;gap:28px}
   .hero-grid{grid-template-columns:1fr;text-align:center;gap:24px}
   .hero-copy .sub{margin-left:auto;margin-right:auto}
   .stage{min-height:56vh}
@@ -264,9 +300,11 @@ footer{border-top:1px solid var(--dline);padding:28px 0;background:var(--dark)}
 @media(max-width:560px){
   section{padding:80px 0}
   .wrap{padding:0 22px}
+  .hero-grid{padding:0 22px 40px}
   .hgrid{grid-template-columns:1fr}
   .hcard.wide{flex-direction:column;gap:10px}
   .hero-copy h1{font-size:34px}
+  .hero-top nav{gap:20px;font-size:13px}
   .foot{justify-content:center;text-align:center}
 }
 

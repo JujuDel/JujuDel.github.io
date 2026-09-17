@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="doc-title">Julien Delclos — Lead Software & Senior Computer Vision Engineer</title>
-<meta id="meta-desc" name="description" content="Julien Delclos - Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW. I see the world twice: once through a sensor, once through a network. C++, CUDA, PyTorch, TensorRT.">
+<title id="doc-title">Julien Delclos — Senior Computer Vision Engineer · ex-Lead Software</title>
+<meta id="meta-desc" name="description" content="Julien Delclos — Senior Computer Vision Engineer, ex-Lead Software @ Stereolabs. Real-time perception on embedded hardware: C++, CUDA, PyTorch, TensorRT. Open to new roles.">
 <meta name="author" content="Julien Delclos">
 <meta name="theme-color" content="#0b0e14">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -21,15 +21,15 @@
      tools/make-og.py if the scene ever changes. -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://juliendelclos.com/">
-<meta id="og-title" property="og:title" content="Julien Delclos — Lead Software &amp; Senior Computer Vision Engineer">
-<meta id="og-desc" property="og:description" content="Senior CV Engineer @ DroneShield · ex-Lead Software @ Stereolabs. I see the world twice — once through a sensor, once through a network.">
+<meta id="og-title" property="og:title" content="Julien Delclos — Senior Computer Vision Engineer · ex-Lead Software">
+<meta id="og-desc" property="og:description" content="Senior CV Engineer · ex-Lead Software @ Stereolabs · open to new roles. I see the world twice — once through a sensor, once through a network.">
 <meta property="og:image" content="https://juliendelclos.com/assets/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta id="og-img-alt" property="og:image:alt" content="A photo split in two: the raw frame on the left, the same frame covered in panoptic segmentation masks on the right.">
 <meta name="twitter:card" content="summary_large_image">
-<meta id="tw-title" name="twitter:title" content="Julien Delclos — Lead Software &amp; Senior Computer Vision Engineer">
-<meta id="tw-desc" name="twitter:description" content="Senior CV Engineer @ DroneShield · ex-Lead Software @ Stereolabs. I see the world twice — once through a sensor, once through a network.">
+<meta id="tw-title" name="twitter:title" content="Julien Delclos — Senior Computer Vision Engineer · ex-Lead Software">
+<meta id="tw-desc" name="twitter:description" content="Senior CV Engineer · ex-Lead Software @ Stereolabs · open to new roles. I see the world twice — once through a sensor, once through a network.">
 <meta name="twitter:image" content="https://juliendelclos.com/assets/og-cover.jpg">
 <script type="application/ld+json">
 {
@@ -38,17 +38,11 @@
   "name": "Julien Delclos",
   "url": "https://juliendelclos.com/",
   "image": "https://juliendelclos.com/assets/og-cover.jpg",
-  "jobTitle": "Lead Software & Senior Computer Vision Engineer",
+  "jobTitle": "Senior Computer Vision Engineer",
   "description": "Software · Computer Vision · Deep Learning · 3D Vision engineer, ex-Stereolabs Lead Software.",
   "knowsAbout": ["Computer Vision", "Deep Learning", "3D Vision", "Embedded Inference", "C++", "CUDA", "PyTorch", "TensorRT"],
+  "alumniOf": [{ "@type": "CollegeOrUniversity", "name": "Télécom SudParis" }],
   "knowsLanguage": ["fr", "en", "de"],
-  "worksFor": { "@type": "Organization", "name": "DroneShield" },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Sydney",
-    "addressRegion": "NSW",
-    "addressCountry": "AU"
-  },
   "sameAs": [
     "https://www.linkedin.com/in/julien-delclos-19b292106/",
     "https://github.com/JujuDel",
@@ -69,6 +63,18 @@
 </head>
 <body>
 
+<!-- sticky mini-nav: slides in once the hero header is off screen (render.js) -->
+<div class="stickynav" id="stickynav">
+ <div class="stickynav-in">
+  <a class="brand" href="#top">julien.delclos</a>
+  <nav><a href="#human" data-i18n="nav.human">Human</a>
+      <a href="#machine" data-i18n="nav.machine">Machine</a>
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a></nav>
+ </div>
+</div>
+
+
 <!-- ============================================================
      HERO — the live panoptic carousel. Each scene plays
      INPUT → PANOPTIC SEG (scanline sweep) → INSTANCES (bounding
@@ -84,6 +90,7 @@
     <nav>
       <a href="#human" data-i18n="nav.human">Human</a>
       <a href="#machine" data-i18n="nav.machine">Machine</a>
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="hero-actions">
@@ -95,8 +102,9 @@
   <div class="hero-grid">
     <div class="hero-copy">
       <h1 data-i18n-html="hero.title">I see the world twice.<span class="m">// once through a sensor, once through a network</span></h1>
-      <p class="sub" data-i18n="hero.sub1">Software · Computer Vision · Deep Learning · 3D Vision | ex-Stereolabs LeadSW.</p>
-      <p class="sub" data-i18n="hero.sub2">(Yep, that's me on the images!)</p>
+      <p class="sub" data-i18n="hero.sub1">Senior Computer Vision Engineer · ex-Lead Software @ Stereolabs. Deep Learning · 3D Vision · Embedded Inference.</p>
+      <p class="sub" data-i18n="hero.sub2">(Yep, that's me in the photos!)</p>
+      <a class="avail" href="#contact"><span class="dot"></span><span data-i18n="hero.avail">Open to new roles</span></a>
       <div class="scroll-hint" data-i18n="hero.scroll">SCROLL ↓</div>
     </div>
     <div class="stage">
@@ -151,7 +159,7 @@
       </div>
       <div class="hcard" data-det="wall_hugger" data-conf="99.1">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">wall_hugger · 99.1%</b></span>
-        <span class="e">🧗</span><h3 data-i18n="human.boulder.h3">Bouldering</h3><p data-i18n="human.boulder.p">Climb as high as the technical debt. Falls gracefully.</p>
+        <span class="e">🧗</span><h3 data-i18n="human.boulder.h3">Bouldering</h3><p data-i18n="human.boulder.p">Climbs as high as the technical debt.</p>
       </div>
       <div class="hcard" data-det="skydiver" data-conf="99.9">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">skydiver · 99.9%</b></span>
@@ -159,7 +167,7 @@
       </div>
       <div class="hcard" data-det="middle_blocker" data-conf="95.0">
         <span class="det"><i></i><i></i><i></i><i></i><b class="det-chip">middle_blocker · 95.0%</b></span>
-        <span class="e">🏐</span><h3 data-i18n="human.volley.h3">Volleyball</h3><p data-i18n="human.volley.p">Middle blocker. Loud at the net, quieter in code reviews.</p>
+        <span class="e">🏐</span><h3 data-i18n="human.volley.h3">Volleyball</h3><p data-i18n="human.volley.p">Middle blocker. Blocks as many balls as regressions in code review.</p>
       </div>
 
       <div class="hcard wide" data-det="nerd" data-conf="100.0">
@@ -172,9 +180,9 @@
             <!-- a shipped side project, not a practice platform — .ship gives it
                  the green dot + filled style so it doesn't read as one more
                  puzzle site in the row -->
+            <a class="chip" href="https://www.codingame.com/profile/b944cb66159c494961db183c595578915353933" target="_blank" rel="noopener" data-i18n="human.code.cg">CodinGame · top 0.1%</a>
             <a class="chip ship" href="https://showtracker.dev/" target="_blank" rel="noopener" data-i18n-title="human.code.showtracker"
                title="ShowTracker — a TV series tracker I built and maintain">ShowTracker ↗</a>
-            <a class="chip" href="https://www.codingame.com/profile/b944cb66159c494961db183c595578915353933" target="_blank" rel="noopener">CodinGame</a>
             <a class="chip" href="https://www.hackerrank.com/julien_delclos" target="_blank" rel="noopener">HackerRank</a>
             <a class="chip" href="https://leetcode.com/user1771A/" target="_blank" rel="noopener">LeetCode</a>
             <span class="chip">LeetGPU</span>
@@ -203,7 +211,7 @@
   <div class="wrap">
     <span class="sec-no cool" data-i18n="machine.secno">02 — THE MACHINE HALF</span>
     <h2 class="mono-title">skills<span class="c">.load()</span></h2>
-    <p class="intro" data-i18n="machine.intro">I turn perception research into systems that run in real time on small hardware. That's the job, in one sentence.</p>
+    <p class="intro" data-i18n="machine.intro">I turn perception research into systems that run in real time on small hardware.</p>
 
     <!-- LEARNING: the offline stage -->
     <div class="mcard learn-card">
@@ -229,7 +237,7 @@
         <span class="lbl" data-i18n-html="machine.learn.lbl">LEARNING <em class="off">— offline</em></span>
         <div class="mrow" data-i18n="machine.learn.row1">PyTorch · Datasets &amp; Training</div>
         <div class="mrow" data-i18n="machine.learn.row2">Detection &amp; Segmentation</div>
-        <div class="mrow" data-i18n="machine.learn.row3">Multitask &amp; Incremental Learning</div>
+        <div class="mrow" data-i18n="machine.learn.row3">Multi-task &amp; Incremental Learning</div>
       </div>
     </div>
 
@@ -279,7 +287,7 @@
         <span class="lbl" data-i18n="machine.embed.lbl">EMBEDDED INFERENCE</span>
         <div class="mrow">TensorRT · CUDA Graphs</div>
         <div class="mrow" data-i18n="machine.embed.row2">Quantization</div>
-        <div class="mrow" data-i18n="machine.embed.row3">Mostly Jetson (but could be elsewhere)</div>
+        <div class="mrow" data-i18n="machine.embed.row3">Mostly Jetson (but not only)</div>
       </div>
 
       <div class="flow" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -308,23 +316,34 @@
 </section>
 
 <!-- ============================================================
-     WHERE THE TWO HALVES HAVE WORKED — teaser only, the full
-     history lives on LinkedIn. To add a role: copy a .job div.
+     PROJECTS — cards are generated from content.js by render.js.
+     To change the text, edit content.js (EN + FR side by side).
      ============================================================ -->
-<section class="meet">
-  <div class="wrap meet-grid">
-    <div>
-      <h2 data-i18n-html="meet.h2">Where the two halves <em>have worked</em></h2>
-      <p class="meet-p" data-i18n="meet.p">The short version. The long one (role by role, with the war stories) lives on LinkedIn.</p>
-      <a class="cvbtn" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener" data-i18n="meet.cvbtn">Full history on LinkedIn ↗</a>
+<section class="projects" id="projects">
+  <div class="wrap">
+    <span class="sec-no green" data-i18n="proj.secno">03 — WHERE THE HALVES MEET</span>
+    <h2 data-i18n-html="proj.h2">Things I've <em>shipped</em>.</h2>
+    <p class="intro" data-i18n="proj.intro">Most of my work runs inside products, so the code stays with the companies. I can't show it, but I'm happy to walk you through any of it.</p>
+
+    <!-- JOURNEY — compact timeline, rows come from JOURNEY / EDUCATION in content.js -->
+    <div class="pgroup" id="work"><span class="pg-lbl" data-i18n="proj.journey">WHERE I'VE WORKED</span>
+      <a class="pg-link" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener" data-i18n="meet.cvbtn">Full history on LinkedIn ↗</a></div>
+    <div class="journey" id="journey"></div>
+    <p class="edu" id="edu"></p>
+
+    <div class="pgroup"><span class="pg-lbl" data-i18n="proj.work">AT WORK</span><span class="pg-note" data-i18n="proj.work.note">under NDA · no code, all the context</span></div>
+    <div class="pgrid" id="work-grid"></div>
+    <div class="more-wrap"><button type="button" class="more-btn" id="work-more" aria-controls="work-grid" aria-expanded="false" hidden></button></div>
+
+    <div class="pgroup"><span class="pg-lbl" data-i18n="proj.side">AFTER HOURS</span><span class="pg-note" data-i18n="proj.side.note">built on my own time</span></div>
+    <div class="pgrid two" id="side-grid"></div>
+
+    <div class="pgroup older-head">
+      <span class="pg-lbl" data-i18n="proj.older">OLDER EXPERIMENTS</span><span class="pg-note" data-i18n="proj.older.note">2019 — 2021 · on GitHub</span>
+      <span class="oarrows"><button type="button" id="older-prev" aria-label="Previous">←</button><button type="button" id="older-next" aria-label="Next">→</button></span>
     </div>
-    <div>
-      <div class="job"><b>DroneShield</b><span class="d" data-i18n="meet.job1">2026 — Now · Sydney · Australia</span></div>
-      <div class="job"><b>Stereolabs — Lead SW</b><span class="d" data-i18n="meet.job2">2024 — 2026 · Paris · France</span></div>
-      <div class="job"><b>Zenseact (Volvo)</b><span class="d" data-i18n="meet.job3">2022 — 2024 · Göteborg · Sweden</span></div>
-      <div class="job"><b>Bosch (Smart Spraying)</b><span class="d" data-i18n="meet.job4">2021 — 2022 · Stuttgart · Germany</span></div>
-      <div class="job"><b>...</b><span class="d">...</span></div>
-    </div>
+    <p class="older-intro" data-i18n="proj.older.intro">Things I built in my first years as an engineer, mostly to learn a technique by taking it all the way to a working demo.</p>
+    <div class="otrack" id="older-track"></div>
   </div>
 </section>
 
@@ -336,8 +355,9 @@
     <!-- availability / location badge. Deliberately factual: where I am and
          what timezone, which is what someone reaching out actually needs.
          Swap the text via the "contact.visa" key in script.js. -->
-    <span class="visa" data-i18n="contact.visa">📍 Based in Sydney · UTC+10</span>
+    <span class="visa"><span class="dot"></span><span data-i18n="contact.visa">Open to new roles</span></span>
     <h2 data-i18n-html="contact.h2"><span class="s">Say hello</span> <span class="m">// or send a stack trace</span></h2>
+    <p></p>
     <div class="cbtns">
       <a class="btn p" href="mailto:julien.delclos@gmail.com">julien.delclos@gmail.com</a>
       <a class="btn g" href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">LinkedIn</a>
@@ -348,12 +368,14 @@
 
 <footer>
   <div class="wrap foot">
-    <span>© <span id="year">2026</span> julien.delclos · Sydney · <span data-i18n="footer.australia">Australia</span></span>
+    <span>© <span id="year">2026</span> julien.delclos</span>
     <span id="last-updated">last_updated: —</span>
     <a href="https://www.linkedin.com/in/julien-delclos-19b292106/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
 </footer>
 
+<script src="content.js"></script>
+<script src="render.js"></script>
 <script src="script.js"></script>
 <!-- GoatCounter: no cookies, no personal data, nothing to consent to.
      REQUIRES a free account on https://www.goatcounter.com/ with the site

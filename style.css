@@ -449,7 +449,7 @@ a.tl-item:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 .tl-role{font-size:11.5px;line-height:1.35;color:var(--psoft)}
 /* education sits on the same 8-column grid as the timeline above:
    each school spans two columns, so it starts under a timeline stop */
-.edu{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px 10px;margin:6px 0 56px;padding-top:14px;border-top:1px dashed var(--pline);font-size:12.5px;color:var(--psoft)}
+.edu{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px 10px;margin:6px 0 22px;padding-top:14px;border-top:1px dashed var(--pline);font-size:12.5px;color:var(--psoft)}
 .edu-lbl{grid-column:1 / -1;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
 .edu-item{grid-column:span 2;display:flex;flex-direction:column;gap:2px;line-height:1.35}
 .edu-item b{font-size:14px;font-weight:600;color:var(--ink)}
@@ -491,3 +491,18 @@ a.tl-item:focus-visible{outline:2px solid var(--green);outline-offset:2px}
   .edu{grid-template-columns:1fr}
   .edu-item{grid-column:auto}
 }
+
+/* certifications — light section, grouped by issuer, every entry links to the certificate */
+.certs{margin:0 0 56px;padding-top:14px;border-top:1px dashed var(--pline);display:grid;gap:9px}
+.certs-lbl{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--green)}
+.cert-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.cert-org{flex:none;min-width:118px;display:flex;flex-direction:column;gap:1px;line-height:1.3}
+.cert-org b{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink)}
+.cert-org i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--psoft)}
+.cert-list{flex:1 1 0;min-width:0;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
+.cert{font-family:var(--mono);font-size:11.5px;color:var(--psoft);background:#fff;border:1px solid var(--pline);border-radius:999px;
+  padding:4px 11px;transition:border-color .15s,color .15s}
+.cert:hover{border-color:var(--green);color:var(--green)}
+.cert:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.cert-note{font-family:var(--mono);font-size:11px;font-style:italic;color:var(--green);margin-right:2px}
+@media(max-width:620px){.cert-org{min-width:0;width:100%;flex-direction:row;gap:8px;align-items:baseline}.cert-list{flex:auto}}

@@ -43,8 +43,8 @@ const PROJECTS_WORK = [
         fr: "Des produits de défense, donc les détails restent privés. Plusieurs capteurs détectent et suivent les drones ; mon équipe était responsable de la caméra PTZ de bout en bout, de la vidéo brute aux modèles de détection et de suivi, jusqu'au pilotage de la caméra."
       },
       approach: {
-        en: "Paid down a large amount of technical debt, starting with the data races spread across the pipeline. Cut CI pipeline time by 90% while improving test coverage. Fixed a range of bugs reported by customers. Built the feature that searches for a drone with the camera once other sensors (radar, RF…) have detected it, even when those sensors are not mounted next to the camera.",
-        fr: "Réduction importante de la dette technique, à commencer par les data races présentes un peu partout dans le pipeline. Durée des pipelines CI réduite de 90 % tout en améliorant la couverture de tests. Correction de bugs variés remontés par les clients. Développement de la fonctionnalité qui recherche avec la caméra un drone détecté par d'autres capteurs (radar, RF…), même quand ces capteurs ne sont pas installés au même endroit que la caméra."
+        en: "Paid down a large amount of technical debt, starting with the data races spread across the pipeline. Cut CI pipeline time by 90% while improving test coverage. Fixed a range of bugs reported by customers. Contributed to the design and training of the next generation of detection models. Built the feature that searches for a drone with the camera once other sensors (radar, RF…) have detected it, even when those sensors are not mounted next to the camera.",
+        fr: "Réduction importante de la dette technique, à commencer par les data races présentes un peu partout dans le pipeline. Durée des pipelines CI réduite de 90 % tout en améliorant la couverture de tests. Correction de bugs variés remontés par les clients. Contribution à la conception et à l'entraînement de la génération suivante de modèles de détection. Développement de la fonctionnalité qui recherche avec la caméra un drone détecté par d'autres capteurs (radar, RF…), même quand ces capteurs ne sont pas installés au même endroit que la caméra."
       },
       results: [
         { en: "CI pipelines 10× faster with improved coverage", fr: "Pipelines CI 10× plus rapides, avec une meilleure couverture de tests" },
@@ -105,8 +105,8 @@ const PROJECTS_WORK = [
         fr: "Des caméras stéréo utilisées dans des robots, des tracteurs et des entrepôts. Chaque fonctionnalité partage un petit GPU embarqué avec l'estimation de profondeur et tout le reste du SDK."
       },
       approach: {
-        en: "Improved and maintained the SDK's perception modules in C++, with TensorRT, CUDA and Nsight profiling. Enhanced object tracking and multi-camera detection fusion. Wrote row detection in C++ for bird's-eye views of vineyards and orchards. Maintained and extended the Python API (Cython). Started with an internal proof of concept of a multi-task network.",
-        fr: "Amélioration et maintenance des modules de perception du SDK en C++, avec TensorRT, CUDA et du profiling Nsight. Évolution du tracking et de la fusion multi-caméras des détections. Détection de lignes en C++ sur des vues de dessus de vignes et de vergers. Maintenance et extension de l'API Python (Cython). Début avec une preuve de concept interne de réseau multi-tâche."
+        en: "Improved and maintained the SDK's perception modules in C++ and CUDA, with TensorRT, CUDA Graphs and Nsight profiling, including the multi-thread / multi-stream synchronisation they run in. Enhanced object tracking and multi-camera detection fusion. Wrote row detection in C++ for bird's-eye views of vineyards and orchards. Maintained and extended the Python API (Cython). Started with an internal proof of concept of a multi-task network.",
+        fr: "Amélioration et maintenance des modules de perception du SDK en C++ et CUDA, avec TensorRT, CUDA Graphs et du profiling Nsight, y compris la synchronisation multi-thread / multi-flux dans laquelle ils tournent. Évolution du tracking et de la fusion multi-caméras des détections. Détection de lignes en C++ sur des vues de dessus de vignes et de vergers. Maintenance et extension de l'API Python (Cython). Début avec une preuve de concept interne de réseau multi-tâche."
       },
       results: [
         { en: "Features shipped in ZED SDK releases", fr: "Fonctionnalités livrées dans les versions du ZED SDK" },
@@ -137,8 +137,8 @@ const PROJECTS_WORK = [
         fr: "Équipe « Lane Detection » d'une stack de perception de production : du code safety-critical, d'autres équipes qui dépendent de l'output, et des KPI qui décident de ce qui part en production."
       },
       approach: {
-        en: "Trained and fine-tuned a multi-task network; built KPIs together with the teams using them. Deployed the network in the car with TensorRT and CUDA. Real-time post-processing in C++ and CUDA: filtering, clustering, 2D → 3D projection. Safety-critical C++ (QM/ASIL).",
-        fr: "Entraînement et fine-tuning d'un réseau multi-tâches ; construction des KPI avec les équipes utilisatrices. Déploiement du réseau dans la voiture avec TensorRT et CUDA. Post-traitement temps réel en C++ et CUDA : filtrage, clustering, projection 2D → 3D. C++ critique pour la sécurité (QM/ASIL)."
+        en: "Trained and fine-tuned a multi-task network; built KPIs together with the teams using them. Deployed the network in the car with TensorRT and CUDA. Maintained the data and training infrastructure. Real-time post-processing in C++ and CUDA: filtering, clustering, 2D → 3D projection, kept deterministic inside a multi-threaded CUDA environment. Quantized models shipped through a semi-automated deployment pipeline. Safety-critical C++ (QM/ASIL).",
+        fr: "Entraînement et fine-tuning d'un réseau multi-tâches ; construction des KPI avec les équipes utilisatrices. Déploiement du réseau dans la voiture avec TensorRT et CUDA. Maintenance de l'infrastructure de données et d'entraînement. Post-traitement temps réel en C++ et CUDA : filtrage, clustering, projection 2D → 3D, gardé déterministe dans un environnement CUDA multi-thread. Modèles quantifiés livrés via un pipeline de déploiement semi-automatisé. C++ critique pour la sécurité (QM/ASIL)."
       },
       results: [
         { en: "Network integrated into the perception stack of production vehicles", fr: "Réseau intégré à la stack de perception de véhicules de série" },
@@ -167,8 +167,8 @@ const PROJECTS_WORK = [
         fr: "Entraîné sur RTX 3090, déployé sur NXP i.MX8 : un budget énergétique minuscule, en plein champ, à vitesse de conduite."
       },
       approach: {
-        en: "Re-implemented and optimised an FCOS-style detector; trained a crop-row detector; built layer visualisations that drove architecture changes; benchmarked the quantized model on several NPU-equipped targets.",
-        fr: "Réimplémentation et optimisation d'un détecteur type FCOS ; entraînement d'un détecteur de lignes de plantation ; visualisations des couches qui ont orienté l'architecture ; benchmark du modèle quantifié sur plusieurs cibles équipées de NPU."
+        en: "Re-implemented and optimised an FCOS-style detector; trained a crop-row detector; built layer visualisations that drove architecture changes; benchmarked the quantized model on several NPU-equipped targets. Adapted the team's auto-annotation tool and prepared the pseudo-annotated data it produced.",
+        fr: "Réimplémentation et optimisation d'un détecteur type FCOS ; entraînement d'un détecteur de lignes de plantation ; visualisations des couches qui ont orienté l'architecture ; benchmark du modèle quantifié sur plusieurs cibles équipées de NPU. Adaptation de l'outil d'auto-annotation de l'équipe et préparation des données pseudo-annotées qu'il produisait."
       },
       results: [
         { en: "Quantized detection running on the embedded NPU", fr: "Détection quantifiée tournant sur le NPU embarqué" },
@@ -197,8 +197,8 @@ const PROJECTS_WORK = [
         fr: "Un projet R&D interne. J'ai aussi co-lancé le centre R&D de Möglingen et piloté sa branche perception visuelle."
       },
       approach: {
-        en: "Defined and implemented the software architecture in C++; deployed OpenPose; person identification and 2D tracking; 3D pose estimation; Jenkins CI; Scrum.",
-        fr: "Définition et implémentation de l'architecture logicielle en C++ ; déploiement d'OpenPose ; identification et tracking 2D ; estimation de pose 3D ; CI Jenkins ; Scrum."
+        en: "Defined and implemented the software architecture in C++; deployed OpenPose; person re-identification and 2D tracking; 3D pose estimation; Jenkins CI; Scrum.",
+        fr: "Définition et implémentation de l'architecture logicielle en C++ ; déploiement d'OpenPose ; ré-identification de personne et tracking 2D ; estimation de pose 3D ; CI Jenkins ; Scrum."
       },
       results: [
         { en: "Working proof of concept on the robot", fr: "Preuve de concept fonctionnelle sur le robot" },

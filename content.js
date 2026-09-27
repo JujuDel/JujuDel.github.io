@@ -277,8 +277,8 @@ const PROJECTS_SIDE = [
     image: "assets/projects/showtracker.jpg",
     title: { en: "ShowTracker", fr: "ShowTracker" },
     desc: {
-      en: "TV Time shut down and none of the replacements did the job, so I built my own, and I keep adding what I need: shows episode by episode, films, manga scans and stats. Android, iOS and web from one codebase, used by family and friends.",
-      fr: "TV Time a fermé et aucun remplaçant ne me convenait, alors j'ai construit le mien, et j'y ajoute ce qui m'intéresse : séries épisode par épisode, films, scans et statistiques. Android, iOS et web depuis une seule base de code, utilisé par la famille et les amis."
+      en: "TV Time shut down and none of the replacements did the job, so I built my own, and I keep adding what I need: shows episode by episode, films, manga scans and stats. Android, iOS and web from one codebase, used by family and friends. Want to try it? Ask for access from the sign-in page (“No account yet?”): I approve each request by hand so not too many people join at once, but don't hesitate!",
+      fr: "TV Time a fermé et aucun remplaçant ne me convenait, alors j'ai construit le mien, et j'y ajoute ce qui m'intéresse : séries épisode par épisode, films, scans et statistiques. Android, iOS et web depuis une seule base de code, utilisé par la famille et les amis. Envie d'essayer ? Demande un accès depuis l'écran de connexion (« Pas encore de compte ? ») : je valide chaque demande à la main pour éviter que trop de monde arrive d'un coup, alors n'hésite pas !"
     },
     figs: [
       { en: "3 platforms · 1 codebase", fr: "3 plateformes · 1 base de code" },

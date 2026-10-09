@@ -156,11 +156,11 @@
     chip.textContent = c.dataset.det + " · " + conf.toFixed(1) + "%";
   });
 
-  /* "show more" button, and timeline links that may point at a hidden card */
+  /* "show more" button, and links to a card (timeline, hero) that may point at a hidden one */
   document.addEventListener("click", (e) => {
     const more = e.target.closest && e.target.closest("#work-more");
     if (more) { expanded = !expanded; applyMore(LANG_NOW); return; }
-    const stopEl = e.target.closest && e.target.closest(".tl-item[data-card]");
+    const stopEl = e.target.closest && e.target.closest("a[data-card]");
     if (!stopEl) return;
     const card = document.getElementById("p-" + stopEl.dataset.card);
     if (!card) return;

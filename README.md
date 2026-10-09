@@ -9,10 +9,11 @@ and refresh to see the change.
 
 The design is "champ / contre-champ": a light **human half** (hobbies,
 languages) and a dark **machine half** (skills), with a live panoptic
-carousel as the hero. Each scene went through my own annotation
-pipeline: auto pre-annotation (Mask R-CNN for the things, MobileSAM for
-the stuff), hand correction in CVAT, then a resolve step that composes
-the final panoptic masks and instance boxes.
+carousel as the hero. Its masks and boxes are made with
+[panoptic-prelabel](https://github.com/JujuDel/panoptic-prelabel): its
+`export-web` step writes the `<name>_raw.jpg` / `_pan.png` / `_inst.png`
+files in `assets/scenes/` and the boxes for the `SCENES` array in
+`script.js`.
 
 ## Files
 

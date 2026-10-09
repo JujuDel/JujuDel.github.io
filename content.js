@@ -16,7 +16,9 @@
    - country: two-letter code, shows a small flag (files in
      assets/flags/: fr, it, de, se, au — from flag-icons, MIT).
    - wide: true makes the card span two columns (use it for the
-     ones with a strong image).
+     ones with a strong image). The image sits on the left at its own
+     proportions and stays in view while the details are open; about
+     1.25:1 matches the height of a closed card.
    - more: true hides the card behind the "Show more" button.
    - det / conf: the label that shows up on hover.
    ============================================================ */
@@ -270,6 +272,40 @@ const PROJECTS_WORK = [
 
 const PROJECTS_SIDE = [
   {
+    id: "panoptic-prelabel", det: "panoptic_seg", conf: 98.1,
+    org: "github.com/JujuDel", when: "2026",
+    badge: "OPEN SOURCE", badgeStyle: "ship",
+    link: "https://github.com/JujuDel/panoptic-prelabel", linkLabel: { en: "Code ↗", fr: "Code ↗" },
+    image: "assets/projects/panoptic-prelabel.jpg",
+    title: { en: "panoptic-prelabel", fr: "panoptic-prelabel" },
+    desc: {
+      en: "The pipeline behind the carousel at the top of this page. Mask R-CNN pre-labels the objects, MobileSAM cuts out the background regions, I correct the result in CVAT, and a deterministic resolve step turns the overlapping shapes into one COCO-panoptic map with instance boxes.",
+      fr: "Le pipeline derrière le carrousel en haut de cette page. Mask R-CNN pré-annote les objets, MobileSAM découpe les régions de fond, je corrige le résultat dans CVAT, puis une étape de résolution déterministe transforme les formes qui se chevauchent en une seule carte COCO panoptique, avec les boîtes d'instances."
+    },
+    figs: [
+      { en: "2.2 s CPU → 46 ms TensorRT", fr: "2,2 s CPU → 46 ms TensorRT" },
+      { en: "Pre-labels: 90% of pixels right", fr: "Pré-annotation : 90 % des pixels justes" }
+    ],
+    details: {
+      context: {
+        en: "Panoptic annotation by hand means giving a class to every pixel of every photo. A pre-annotation tool earns its place if correcting its output beats starting from scratch, and only if its quality can be measured.",
+        fr: "Annoter en panoptique à la main, c'est donner une classe à chaque pixel de chaque photo. Un outil de pré-annotation n'a d'intérêt que si corriger sa sortie va plus vite que partir de zéro, et seulement si sa qualité se mesure."
+      },
+      approach: {
+        en: "A Python package with one CLI command per stage and a YAML config validated at load time. Mask R-CNN (ONNX Runtime) for the countable things; MobileSAM's automatic mode for class-agnostic regions that are then named, so classes COCO doesn't have (bollards, buoys) need no retraining. Correction in CVAT. The resolve step applies explicit priority rules (things over stuff, carried items in front of the person carrying them, smaller over larger, ties broken by geometry), each covered by a synthetic test, so the result never depends on file order. An export step writes the overlays and boxes this site animates.",
+        fr: "Un paquet Python, une commande par étape, une config YAML validée au chargement. Mask R-CNN (ONNX Runtime) pour les objets dénombrables ; le mode automatique de MobileSAM pour des régions sans classe, nommées ensuite, ce qui permet des classes absentes de COCO (bollards, bouées) sans réentraînement. Correction dans CVAT. L'étape de résolution applique des règles de priorité explicites (les objets avant le fond, ce qu'on porte devant la personne qui le porte, le plus petit avant le plus grand, égalités départagées par la géométrie), chacune couverte par un test synthétique, pour que le résultat ne dépende jamais de l'ordre du fichier. Un export produit les calques et les boîtes que ce site anime."
+      },
+      results: [
+        { en: "The four scenes of the hero carousel ship as examples: the whole pipeline replays from committed files, no model needed", fr: "Les quatre scènes du carrousel sont fournies en exemples : tout le pipeline se rejoue depuis les fichiers du dépôt, sans modèle" },
+        { en: "Found an undocumented limit in the ONNX model zoo's Mask R-CNN (boxes clipped at 1279 × 959, so portrait photos lost everything below y = 960) and worked around it", fr: "Découverte d'une limite non documentée du Mask R-CNN de l'ONNX model zoo (boîtes coupées à 1279 × 959 : les photos en portrait perdaient tout sous y = 960), et contournement" },
+        { en: "On a Tesla T4, the detector drops from 2.2 s on CPU to 107 ms with CUDA and 46 ms with TensorRT FP16; MobileSAM from 169 s to 7 s", fr: "Sur une Tesla T4, le détecteur passe de 2,2 s sur CPU à 107 ms en CUDA et 46 ms en TensorRT FP16 ; MobileSAM de 169 s à 7 s" },
+        { en: "Scored against Mask2Former on the same corrected maps, to see where a single panoptic model should take over and where region naming still earns its place (classes COCO doesn't have)", fr: "Comparé à Mask2Former sur les mêmes cartes corrigées, pour savoir où un modèle panoptique unique doit prendre le relais et où le nommage des régions reste utile (classes absentes de COCO)" },
+        { en: "Metrics match the official panopticapi to 1e-9, and every quality number of the pipeline is regenerated by CI from committed files", fr: "Métriques identiques à celles de panopticapi à 1e-9 près, et chaque chiffre de qualité du pipeline est regénéré par la CI depuis les fichiers du dépôt" }
+      ]
+    },
+    tech: ["Python", "ONNX Runtime", "TensorRT", "CUDA", "PyTorch", "MobileSAM", "CVAT", "pytest"]
+  },
+  {
     id: "showtracker", det: "show_tracker", conf: 99.4,
     org: "showtracker.dev", when: "2026",
     badge: { en: "LIVE", fr: "EN LIGNE" }, badgeStyle: "ship",
@@ -300,8 +336,8 @@ const PROJECTS_SIDE = [
     image: "assets/projects/this-site.jpg",
     title: { en: "This website", fr: "Ce site" },
     desc: {
-      en: "The page you're reading. The carousel up top runs on my own corrected panoptic annotations; the chess ratings come live from public APIs.",
-      fr: "La page que tu lis. Le carrousel du haut tourne sur mes propres annotations panoptiques corrigées ; les classements d'échecs arrivent en direct des API publiques."
+      en: "The page you're reading. The carousel up top plays the masks made with panoptic-prelabel; the chess ratings come live from public APIs.",
+      fr: "La page que tu lis. Le carrousel du haut joue les masques produits par panoptic-prelabel ; les classements d'échecs arrivent en direct des API publiques."
     },
     figs: [
       { en: "No framework · no build step", fr: "Sans framework · sans build" },
@@ -309,11 +345,11 @@ const PROJECTS_SIDE = [
     ],
     details: {
       approach: {
-        en: "Mask R-CNN (ONNX) and MobileSAM pre-annotate my photos, corrected by hand in CVAT where needed, then a script resolves panoptic masks and instance boxes that vanilla JS animates. Chess.com and Lichess ratings load on scroll, with a cached static fallback. Every project card is generated from one bilingual content file. Hosted on GitHub Pages.",
-        fr: "Mask R-CNN (ONNX) et MobileSAM pré-annotent mes photos, corrigées à la main dans CVAT si besoin, puis un script produit les masques panoptiques et les boîtes d'instances que du JavaScript pur anime. Les classements Chess.com et Lichess se chargent au scroll, avec un repli statique en cache. Chaque carte projet est générée depuis un seul fichier de contenu bilingue. Hébergé sur GitHub Pages."
+        en: "The carousel is vanilla JS over the overlays and boxes exported by panoptic-prelabel: a scanline reveals the panoptic map, then the instance boxes come in one by one, and the frame morphs to each photo's aspect. Chess.com and Lichess ratings load on scroll, with a cached static fallback. Every project card is generated from one bilingual content file. Hosted on GitHub Pages.",
+        fr: "Le carrousel, c'est du JavaScript pur sur les calques et les boîtes exportés par panoptic-prelabel : une ligne de balayage révèle la carte panoptique, puis les boîtes d'instances arrivent une à une, et le cadre prend le format de chaque photo. Les classements Chess.com et Lichess se chargent au scroll, avec un repli statique en cache. Chaque carte projet est générée depuis un seul fichier de contenu bilingue. Hébergé sur GitHub Pages."
       }
     },
-    tech: ["JavaScript", "HTML / CSS", "ONNX", "CVAT", "GitHub Pages"]
+    tech: ["JavaScript", "HTML / CSS", "GitHub Pages"]
   }
 ];
 

@@ -22,6 +22,7 @@ const I18N = {
     "hero.title": `I see the world twice.<span class="m">// once through a sensor, once through a network</span>`,
     "hero.sub1": "Senior Computer Vision Engineer · ex-Lead Software @ Stereolabs. Deep Learning · 3D Vision · Embedded Inference.",
     "hero.sub2": "(Yep, that's me in the photos!)",
+    "hero.pipeline": "How these masks are made ↓",
     "hero.scroll": "SCROLL ↓",
     "hero.modes": ["INPUT", "PANOPTIC SEG", "INSTANCES"],
     "meta.title": "Julien Delclos — Senior Computer Vision Engineer · ex-Lead Software",
@@ -77,12 +78,12 @@ const I18N = {
     "proj.work": "AT WORK",
     "proj.work.note": "under NDA · no code, all the context",
     "proj.side": "AFTER HOURS",
-    "proj.side.note": "built on my own time",
+    "proj.side.note": "2026 · built on my own time",
     "proj.older": "OLDER EXPERIMENTS",
     "proj.older.intro": "Things I built in my first years as an engineer, mostly to learn a technique by taking it all the way to a working demo.",
     "proj.older.note": "2019 — 2021 · on GitHub",
     "human.code.cg": "CodinGame · top 0.1%",
-    "lastUpdated": "September 2026",
+    "lastUpdated": "October 2026",
     "langBtn": "FR"
   },
   fr: {
@@ -92,6 +93,7 @@ const I18N = {
     "hero.title": `Je vois le monde deux fois.<span class="m">// une fois via un capteur, une fois via un réseau</span>`,
     "hero.sub1": "Senior Computer Vision Engineer · ex-Lead Software chez Stereolabs. Deep Learning · Vision 3D · Inférence embarquée.",
     "hero.sub2": "(Oui, c'est bien moi sur les photos !)",
+    "hero.pipeline": "Comment ces masques sont faits ↓",
     "hero.scroll": "DÉFILER ↓",
     "hero.modes": ["INPUT", "SEG. PANOPTIQUE", "INSTANCES"],
     "meta.title": "Julien Delclos — Ingénieur Computer Vision Senior · ex-Lead Software",
@@ -147,12 +149,12 @@ const I18N = {
     "proj.work": "AU TRAVAIL",
     "proj.work.note": "sous NDA · pas de code, tout le contexte",
     "proj.side": "EN DEHORS DU TRAVAIL",
-    "proj.side.note": "construit sur mon temps libre",
+    "proj.side.note": "2026 · construit sur mon temps libre",
     "proj.older": "EXPÉRIENCES PLUS ANCIENNES",
     "proj.older.intro": "Des projets de mes premières années d'ingénieur, surtout pour apprendre une techno en allant jusqu'à une démo qui marche.",
     "proj.older.note": "2019 — 2021 · sur GitHub",
     "human.code.cg": "CodinGame · top 0,1 %",
-    "lastUpdated": "Septembre 2026",
+    "lastUpdated": "Octobre 2026",
     "langBtn": "EN"
   }
 };

@@ -283,7 +283,7 @@ const PROJECTS_SIDE = [
       fr: "Le pipeline derrière le carrousel en haut de cette page. Mask R-CNN pré-annote les objets, MobileSAM découpe les régions de fond, je corrige le résultat dans CVAT, puis une étape de résolution déterministe transforme les formes qui se chevauchent en une seule carte COCO panoptique, avec les boîtes d'instances."
     },
     figs: [
-      { en: "2.2 s CPU → 46 ms TensorRT", fr: "2,2 s CPU → 46 ms TensorRT" },
+      { en: "107 ms CUDA → 46 ms TensorRT FP16", fr: "107 ms CUDA → 46 ms TensorRT FP16" },
       { en: "Pre-labels: 90% of pixels right", fr: "Pré-annotation : 90 % des pixels justes" }
     ],
     details: {
@@ -388,7 +388,7 @@ const JOURNEY = [
 ];
 
 const EDUCATION = [
-  { org: "Télécom SudParis", role: { en: "MSc, High Tech Imaging", fr: "Master, High Tech Imaging" }, when: { en: "2015 — 2018", fr: "2015 — 2018" } },
-  { org: "Lycée Marcelin Berthelot", role: { en: "Classes préparatoires", fr: "Classes préparatoires" }, when: { en: "2013 — 2015", fr: "2013 — 2015" } },
-  { org: "Prytanée National Militaire", role: { en: "Military high school", fr: "Lycée militaire" }, when: { en: "2010 — 2013", fr: "2010 — 2013" } }
+  { org: "Télécom SudParis", role: { en: "MSc, High Tech Imaging", fr: "Master, High Tech Imaging" } },
+  { org: "Lycée Marcelin Berthelot", role: { en: "Classes préparatoires", fr: "Classes préparatoires" } },
+  { org: "Prytanée National Militaire", role: { en: "Military high school", fr: "Lycée militaire" } }
 ];

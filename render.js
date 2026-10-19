@@ -103,7 +103,7 @@
       ? `<a class="tl-item" href="#p-${esc(j.card)}" data-card="${esc(j.card)}">${inner}</a>`
       : `<div class="tl-item">${inner}</div>`;
   }
-  const edu = (e, lang) => `<span class="edu-item"><i>${esc(tr(e.when, lang))}</i><b>${esc(e.org)}</b><span>${esc(tr(e.role, lang))}</span></span>`;
+  const edu = (e, lang) => `<span class="edu-item">${e.when ? `<i>${esc(tr(e.when, lang))}</i>` : ""}<b>${esc(e.org)}</b><span>${esc(tr(e.role, lang))}</span></span>`;
 
   let expanded = false;
   function applyMore(lang) {

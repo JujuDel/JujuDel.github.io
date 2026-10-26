@@ -94,9 +94,15 @@
       <span class="oline">${LABELS[lang].ghLine}</span>
     </a>`;
 
-  /* timeline item: flag + company + years, jumping to its project card */
+  /* timeline item: flag + company + years, jumping to its project card.
+     With "roles", one employer groups several positions as sub-lines. */
   function stop(j, lang) {
     const years = tr(j.when, lang).split(" · ")[0];
+    if (j.roles) {
+      const subs = j.roles.map((r) => `<a class="tl-sub" href="#p-${esc(r.card)}" data-card="${esc(r.card)}"><i>${esc(r.when)}</i>${esc(tr(r.role, lang))}</a>`).join("");
+      return `<div class="tl-item tl-group"><span class="tl-dot"></span><span class="tl-when">${flag(j.country)}${esc(years)}</span>
+      <b>${esc(j.org)}</b><span class="tl-subs">${subs}</span></div>`;
+    }
     const inner = `<span class="tl-dot"></span><span class="tl-when">${flag(j.country)}${esc(years)}</span>
       <b>${esc(j.org)}</b><span class="tl-role">${esc(tr(j.role, lang))}</span>`;
     return j.card

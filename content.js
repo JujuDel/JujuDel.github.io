@@ -63,12 +63,12 @@ const PROJECTS_WORK = [
     credit: { text: "Stereolabs, ZED SDK 5", url: "https://www.stereolabs.com/en-fr/blog/introducing-terra-ai-new-artificial-general-intelligence-for-robots" },
     title: { en: "Leading the ZED SDK team", fr: "Diriger l'équipe ZED SDK" },
     desc: {
-      en: "Lead Software Engineer for the ZED SDK: ran the team, kept Embedded, AI, Data and Product on synchronised roadmaps, and reported to the C-suite.",
-      fr: "Lead Software Engineer du ZED SDK : management de l'équipe, roadmaps synchronisées pour l'Embedded, l'IA, la Data et le Produit, et reporting direct au C-level."
+      en: "Lead Software Engineer for the ZED SDK: led the SDK software team (5 engineers), coordinated ~20 people across 5 teams (SDK, AI, Embedded SW, Data, Product), and reported to the CTO.",
+      fr: "Lead Software Engineer du ZED SDK : management de l'équipe logicielle SDK (5 ingénieurs), coordination de ~20 personnes sur 5 équipes (SDK, IA, Embedded SW, Data, Produit), et reporting direct au CTO."
     },
     figs: [
-      { en: "~20 engineers · 5 teams", fr: "~20 ingénieurs · 5 équipes" },
-      { en: "SDK 5.2.x & 5.3.0", fr: "SDK 5.2.x & 5.3.0" }
+      { en: "Team of 5 · ~20 people across 5 teams", fr: "Équipe de 5 · ~20 personnes sur 5 équipes" },
+      { en: "ZED SDK 5.1 → 5.3", fr: "ZED SDK 5.1 → 5.3" }
     ],
     details: {
       context: {
@@ -76,14 +76,19 @@ const PROJECTS_WORK = [
         fr: "Un SDK très utilisé, des clients sur de nombreuses plateformes, plusieurs verticales techniques, et un train de releases qui ne devait pas s'arrêter."
       },
       approach: {
-        en: "1:1s and annual reviews with direct reports. Managed how senior and principal engineers worked with the rest of the organisation. Owned the roadmap sync between the SW, AI, Embedded SW and Data leads. Raised the bar on code quality, CI/CD and regression management.",
-        fr: "1:1 et entretiens annuels avec mes collaborateurs directs. Gestion des interactions entre les profils senior / principal et le reste de l'organisation. Responsable de la synchronisation de la roadmap entre les leads SW, IA, Embedded SW et Data. Relèvement des standards de qualité de code, de CI/CD et de gestion des régressions."
+        en: "1:1s and annual reviews with direct reports. Managed how senior and principal engineers worked with the rest of the organisation. Owned the roadmap sync between the SW, AI, Embedded SW and Data leads. Raised the bar on code quality, CI/CD and regression management. Co-designed with the team the AI & GPU integration APIs: retrieveTensor, CUDA streams in image conversions, CUDA context reuse for PyTorch interop. Trained the TPM who took over coordination. AI-assisted engineering: Claude Code skills, GitLab review scripts and a Slack alerting bot, adopted by the SDK, embedded and AI teams; a new API and its Cython bindings ready overnight instead of about a week, through the usual review and test gates.",
+        fr: "1:1 et entretiens annuels avec mes collaborateurs directs. Gestion des interactions entre les profils senior / principal et le reste de l'organisation. Responsable de la synchronisation de la roadmap entre les leads SW, IA, Embedded SW et Data. Relèvement des standards de qualité de code, de CI/CD et de gestion des régressions. Co-conception avec l'équipe des API d'intégration IA & GPU : retrieveTensor, streams CUDA dans les conversions d'images, réutilisation du contexte CUDA pour l'interop PyTorch. Formation du TPM qui a repris la coordination. Ingénierie assistée par IA : skills Claude Code, scripts de review GitLab et un bot d'alertes Slack, adoptés par les équipes SDK, embarqué et IA ; une nouvelle API et ses bindings Cython prêts en une nuit au lieu d'environ une semaine, avec les mêmes étapes de review et de tests."
       },
       results: [
-        { en: "Released ZED SDK 5.2.x and 5.3.0", fr: "Sortie du ZED SDK 5.2.x et 5.3.0" },
-        { en: "Stability, quality and feature gains across the SDK", fr: "Gains de stabilité, de qualité et de fonctionnalités sur tout le SDK" }
+        { en: "Shipped ZED SDK 5.1 → 5.3 (Oct 2025 – Apr 2026)", fr: "Sortie du ZED SDK 5.1 → 5.3 (oct. 2025 – avr. 2026)" },
+        { en: "51–85% lower CPU load and 5–45% lower grab latency on Jetson AGX with 1 to 8 GMSL cameras", fr: "Charge CPU réduite de 51 à 85 % et latence de grab réduite de 5 à 45 % sur Jetson AGX, avec 1 à 8 caméras GMSL" },
+        { en: "21–38% lower streaming latency", fr: "Latence de streaming réduite de 21 à 38 %" },
+        { en: "Zero-copy NV12 capture", fr: "Capture NV12 zero-copy" },
+        { en: "New Sensors API (beta) unifying ZED cameras and Ouster LiDAR", fr: "Nouvelle Sensors API (bêta) unifiant caméras ZED et LiDAR Ouster" },
+        { en: "Jetson Thor / JetPack 7 (beta), CUDA 13", fr: "Jetson Thor / JetPack 7 (bêta), CUDA 13" }
       ]
     },
+    link: "https://www.stereolabs.com/developers/release", linkLabel: { en: "Release notes ↗", fr: "Release notes ↗" },
     tech: ["Leadership", "Roadmap", "Release management", "CI/CD"]
   },
   {
@@ -107,11 +112,11 @@ const PROJECTS_WORK = [
         fr: "Des caméras stéréo utilisées dans des robots, des tracteurs et des entrepôts. Chaque fonctionnalité partage un petit GPU embarqué avec l'estimation de profondeur et tout le reste du SDK."
       },
       approach: {
-        en: "Improved and maintained the SDK's perception modules in C++ and CUDA, with TensorRT, CUDA Graphs and Nsight profiling, including the multi-thread / multi-stream synchronisation they run in. Enhanced object tracking and multi-camera detection fusion. Wrote row detection in C++ for bird's-eye views of vineyards and orchards. Maintained and extended the Python API (Cython). Started with an internal proof of concept of a multi-task network.",
-        fr: "Amélioration et maintenance des modules de perception du SDK en C++ et CUDA, avec TensorRT, CUDA Graphs et du profiling Nsight, y compris la synchronisation multi-thread / multi-flux dans laquelle ils tournent. Évolution du tracking et de la fusion multi-caméras des détections. Détection de lignes en C++ sur des vues de dessus de vignes et de vergers. Maintenance et extension de l'API Python (Cython). Début avec une preuve de concept interne de réseau multi-tâche."
+        en: "Improved and maintained the SDK's perception modules in C++ and CUDA, with TensorRT, CUDA Graphs and Nsight profiling, including the multi-thread / multi-stream synchronisation they run in. Enhanced object tracking and multi-camera detection fusion. Wrote row detection in C++ for bird's-eye views of vineyards and orchards. Maintained and extended the Python API (Cython). Designed and trained a multi-task detection + segmentation network, benchmarked it in FP16 on Jetson Orin Nano, Orin NX 16GB and AGX Orin, and integrated it into the SDK as an on-demand feature. Integrator support: bugs reported by customers and Tier-1s (memory leaks, crashes, body-tracking 3D box dimensions, Python multi-thread performance) and the features they requested (persistent memory for static 3D objects, rotated bounding boxes, instance-mask ingestion). Trained the junior engineer who took over detection and segmentation.",
+        fr: "Amélioration et maintenance des modules de perception du SDK en C++ et CUDA, avec TensorRT, CUDA Graphs et du profiling Nsight, y compris la synchronisation multi-thread / multi-flux dans laquelle ils tournent. Évolution du tracking et de la fusion multi-caméras des détections. Détection de lignes en C++ sur des vues de dessus de vignes et de vergers. Maintenance et extension de l'API Python (Cython). Conception et entraînement d'un réseau multi-tâche détection + segmentation, benchmarké en FP16 sur Jetson Orin Nano, Orin NX 16GB et AGX Orin, et intégré au SDK, disponible à la demande. Support aux intégrateurs : bugs remontés par les clients et les Tier-1 (fuites mémoire, crashs, dimensions des boîtes 3D du body tracking, performances Python multi-thread) et fonctionnalités demandées (mémoire persistante des objets 3D statiques, bounding boxes orientées, ingestion de masques d'instance). Formation de l'ingénieur junior qui a repris la détection et la segmentation."
       },
       results: [
-        { en: "Features shipped in ZED SDK releases", fr: "Fonctionnalités livrées dans les versions du ZED SDK" },
+        { en: "Individual contributor on every ZED SDK release from 4.1", fr: "Contributeur individuel sur chaque version du ZED SDK depuis la 4.1" },
         { en: "Python API kept in step with the C++ SDK", fr: "API Python maintenue au niveau du SDK C++" },
         { en: "Technical debt paid down, team moved to stricter coding practices", fr: "Dette technique réduite, équipe passée à des pratiques de code plus strictes" }
       ]
@@ -151,10 +156,10 @@ const PROJECTS_WORK = [
   },
   {
     id: "smart-spraying", det: "weed", conf: 91.3,
-    org: "Bosch × BASF", when: "2021 — 2022", where: "Stuttgart", country: "de", badge: "LEAD",
+    org: "Technology & Strategy · client Bosch", when: "2021 — 2022", where: "Stuttgart", country: "de", badge: "LEAD",
     image: "assets/projects/smart-spraying.jpg",
     credit: { text: "Bosch BASF Smart Farming" },
-    title: { en: "Smart Spraying: weeds, spotted in real time", fr: "Smart Spraying : les mauvaises herbes, repérées en temps réel" },
+    title: { en: "Bosch × BASF Smart Spraying: weeds, spotted in real time", fr: "Bosch × BASF Smart Spraying : les mauvaises herbes, repérées en temps réel" },
     desc: {
       en: "Technical lead on the vision side of a sprayer that spots weeds with a camera while the tractor drives, so it only sprays where it needs to.",
       fr: "Tech lead côté vision d'un pulvérisateur qui repère les mauvaises herbes à la caméra pendant que le tracteur roule, pour ne traiter que là où c'est nécessaire."
@@ -211,7 +216,7 @@ const PROJECTS_WORK = [
   },
   {
     id: "forklift", det: "forklift_safety", conf: 93.0, more: true,
-    org: "Bosch", when: "2019", where: "Abstatt", country: "de",
+    org: "Technology & Strategy · client Bosch", when: "2019", where: "Abstatt", country: "de",
     image: "assets/projects/forklift.jpg",
     credit: { text: "Image: Bosch" },
     title: { en: "A 360° fisheye camera system for forklifts", fr: "Un système caméra fisheye 360° pour chariots élévateurs" },
@@ -380,9 +385,13 @@ const JOURNEY = [
   { org: "DroneShield", card: "droneshield", country: "au", role: { en: "Senior Computer Vision Engineer", fr: "Senior Computer Vision Engineer" }, when: { en: "2026 · Sydney · Australia", fr: "2026 · Sydney · Australie" } },
   { org: "Stereolabs", card: "zed-lead", country: "fr", role: { en: "Lead Software Engineer · Senior DL / 3D CV", fr: "Lead Software Engineer · Senior DL / Vision 3D" }, when: { en: "2024 — 2026 · Paris · France", fr: "2024 — 2026 · Paris · France" } },
   { org: "Zenseact (Volvo)", card: "zenseact", country: "se", role: { en: "Deep Learning Engineer", fr: "Deep Learning Engineer" }, when: { en: "2022 — 2024 · Göteborg · Sweden", fr: "2022 — 2024 · Göteborg · Suède" } },
-  { org: "Bosch", card: "smart-spraying", country: "de", role: { en: "Deep Learning Tech Lead · Smart Spraying", fr: "Tech Lead Deep Learning · Smart Spraying" }, when: { en: "2021 — 2022 · Stuttgart · Germany", fr: "2021 — 2022 · Stuttgart · Allemagne" } },
-  { org: "Technology & Strategy", card: "followme", country: "de", role: { en: "Lead Developer · Vision Perception", fr: "Lead Developer · Perception visuelle" }, when: { en: "2020 · Stuttgart · Germany", fr: "2020 · Stuttgart · Allemagne" } },
-  { org: "Bosch", card: "forklift", country: "de", role: { en: "Vision Perception Engineer · Forklift cameras", fr: "Ingénieur perception visuelle · Chariots élévateurs" }, when: { en: "2019 · Abstatt · Germany", fr: "2019 · Abstatt · Allemagne" } },
+  /* one employer, several positions (like LinkedIn): roles = sub-lines, each jumping to its card */
+  { org: "Technology & Strategy", country: "de", when: { en: "2019 — 2022 · Stuttgart · Germany", fr: "2019 — 2022 · Stuttgart · Allemagne" },
+    roles: [
+      { when: "2021–22", card: "smart-spraying", role: { en: "Bosch × BASF Smart Spraying, Deep Learning Tech Lead", fr: "Bosch × BASF Smart Spraying, Tech Lead Deep Learning" } },
+      { when: "2020", card: "followme", role: { en: "FollowMe, Lead Developer", fr: "FollowMe, Lead Developer" } },
+      { when: "2019", card: "forklift", role: { en: "Bosch, Forklift cameras", fr: "Bosch, caméras pour chariots élévateurs" } }
+    ] },
   { org: "Cedeo.net", card: "cedeo", country: "it", role: { en: "R&D · AR & image processing (Erasmus)", fr: "R&D · AR & traitement d'image (Erasmus)" }, when: { en: "2018 · Turin · Italy", fr: "2018 · Turin · Italie" } },
   { org: "CEA List", card: "cea", country: "fr", role: { en: "R&D Intern · Visual SLAM", fr: "Stagiaire R&D · SLAM visuel" }, when: { en: "2018 · Saclay · France", fr: "2018 · Saclay · France" } }
 ];
